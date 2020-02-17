@@ -45,3 +45,23 @@ def loginUser():
             wsResponse['resultSet'] = None
             wsResponse['operationStatus'] = CustomUtils.SOMETHING_WENT_WRONG
     return wsResponse
+
+
+@app.route('/checkIfUserLoggedIn', methods=['POST'])
+def checkIfUserLoggedIn():
+    wsResponse = {"resultSet": None, "operationStatus": None}
+
+    try:
+        responseDate = userService.checkIfUserLoggedIn(request.headers.get('session_id'))
+
+        wsResponse['resultSet'] = responseDate
+        wsResponse['operationStatus'] = CustomUtils.SUCCESSFULL
+
+    except Exception as e:
+        if e.__class__ != "EXCEPTION":
+            wsResponse['resultSet'] = None
+            wsResponse['operationStatus'] = e.STATUS_CODE
+        else:
+            wsResponse['resultSet'] = None
+            wsResponse['operationStatus'] = CustomUtils.SOMETHING_WENT_WRONG
+    return wsResponse

@@ -5,8 +5,9 @@ from flask import jsonify
 from flask import flash, request
 
 from controller import UserController
+from controller import GroupController
 if __name__ == "__main__":
-    app.run()
+    app.run(debug="True")
 
 
 

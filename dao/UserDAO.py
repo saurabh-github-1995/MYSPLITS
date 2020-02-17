@@ -6,11 +6,14 @@ from Exceptions.EmailCannotBeNull import EmailCannotBeNull
 from Exceptions.EmailExists import EmailExists
 from Exceptions.UserNameCannotBeNull import UserNameCannotBeNull
 from Exceptions.UserNameExists import UserNameExists
+from Exceptions.UserNotLoggedIn import UserNotLoggedIn
 from Exceptions.WrongCredentials import WrongCredentials
 from dbconfig import mysql
 
 
 class UserDAO:
+    customUtils = CustomUtils()
+
     @classmethod
     def userRegistration(cls, data):
         try:
@@ -25,7 +28,7 @@ class UserDAO:
             return None
         except Exception as e:
             print(e)
-            return cls.findSpecificError(str(e))
+            return cls.customUtils.findSpecificError(str(e))
 
         finally:
             cursor.close()
@@ -53,7 +56,7 @@ class UserDAO:
             print(e)
             # print(e.__class__)
             if str(e) != "":
-                return cls.findSpecificError(str(e))
+                return cls.customUtils.findSpecificError(str(e))
             else:
                 raise e.__class__
         finally:
@@ -61,15 +64,24 @@ class UserDAO:
             conn.close()
 
     @classmethod
-    def findSpecificError(cls, errorString):
+    def checkIfUserLoggedIn(cls, sessionId):
+        try:
+            conn = mysql.connect()
+            cursor = conn.cursor(pymysql.cursors.DictCursor)
+            cursor.execute("SELECT * FROM users u WHERE u.session_id = %s",
+                           sessionId)
+            user = cursor.fetchone()
+            if user is not None:
+                return user
+            else:
+                raise UserNotLoggedIn
 
-        if "for key 'user_name'" in errorString:
-            raise UserNameExists
-        elif "Column 'user_name' cannot be null" in errorString:
-            raise UserNameCannotBeNull
-        elif "for key 'email'" in errorString:
-            raise EmailExists
-        elif "Column 'email' cannot be null":
-            raise EmailCannotBeNull
-        else:
-            raise Exception
+        except Exception as e:
+            print(e)
+            if str(e) != "":
+                return cls.customUtils.findSpecificError(str(e))
+            else:
+                raise e.__class__
+        finally:
+            cursor.close()
+            conn.close()

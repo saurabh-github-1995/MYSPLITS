@@ -22,6 +22,12 @@ class UserService:
             responseData = cls.userDAO.loginUser(data)
             return responseData
         except Exception as e:
-            print("-----------")
-            print(e.__class__)
+            raise e.__class__
+
+    @classmethod
+    def checkIfUserLoggedIn(cls, sessionId):
+        try:
+            responseData = cls.userDAO.checkIfUserLoggedIn(sessionId)
+            return responseData
+        except Exception as e:
             raise e.__class__
