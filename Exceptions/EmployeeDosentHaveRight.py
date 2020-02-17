@@ -1,2 +1,0 @@
-class EmployeeDosentHaveRight(Exception):
-    pass

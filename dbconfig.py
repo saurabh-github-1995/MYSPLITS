@@ -6,6 +6,6 @@ mysql = MySQL()
 # MySQL configurations
 app.config['MYSQL_DATABASE_USER'] = 'root'
 app.config['MYSQL_DATABASE_PASSWORD'] = 'root'
-app.config['MYSQL_DATABASE_DB'] = 'easytravels'
+app.config['MYSQL_DATABASE_DB'] = 'mysplits'
 app.config['MYSQL_DATABASE_HOST'] = 'localhost'
 mysql.init_app(app)

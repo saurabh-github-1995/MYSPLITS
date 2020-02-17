@@ -1,2 +1,0 @@
-class EmployeeWithEmailNotExist(Exception):
-    pass
