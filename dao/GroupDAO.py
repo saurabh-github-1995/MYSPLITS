@@ -23,13 +23,20 @@ class GroupDAO:
             conn = mysql.connect()
             cursor = conn.cursor(pymysql.cursors.DictCursor)
             cursor.execute(
-                "INSERT INTO app_group (id, name, group_avtar, discription, created_by, type, created_by_name) VALUES (%s,%s,%s,%s,%s,%s,%s)",
+                "INSERT INTO app_group (id, name, group_avtar, discription, created_by, type, created_by_name, currency) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)",
                 (group_id, data.get("name"), data.get("group_avtar"), data.get("discription"), user.get("id"),
-                 data.get("type"), user.get("full_name")))
+                 data.get("type"), user.get("full_name"), data.get("currency")))
             conn.commit()
 
             cursor.execute("SELECT * FROM app_group WHERE id=%s", group_id)
             group = cursor.fetchone()
+
+            member_id = str(uuid.uuid4())
+            cursor.execute(
+                "INSERT INTO group_members (id, group_name, group_id, member_name, member_id, created_by_name, created_by_id) VALUES (%s,%s,%s,%s,%s,%s,%s)",
+                (member_id, group.get("name"), group.get("id"), user.get("full_name"), user.get("id"),
+                 group.get("created_by_name"), group.get("created_by")))
+            conn.commit()
             return group
 
         except Exception as e:
