@@ -16,3 +16,25 @@ class GroupService:
 
         except Exception as e:
             raise e.__class__
+
+    @classmethod
+    def inviteMemberToGroup(cls, data, headers):
+        try:
+            currentUser = cls.userService.checkIfUserLoggedIn(headers.get("session_id"))
+            if currentUser is not None:
+                group = cls.getGroupDetailsByGroupId(data.get('group_id'))
+                toInviteUser = cls.userService.getUserDetailsByUserId(data.get("user_id"))
+                responseData = cls.groupDAO.inviteMemberToGroup(data, currentUser, group, toInviteUser)
+                return responseData
+
+        except Exception as e:
+            raise e.__class__
+
+    @classmethod
+    def getGroupDetailsByGroupId(cls, group_id):
+        try:
+            responseData = cls.groupDAO.getGroupDetailsByGroupId(group_id)
+            return responseData
+
+        except Exception as e:
+            raise e.__class__

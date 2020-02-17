@@ -15,6 +15,8 @@ class CustomUtils:
     WRONG_CREDENTIALS = -6
     USER_NOT_LOGGED_IN = -7
     GROUP_NAME_CANNOT_BE_NULL = -8
+    GROUP_DOES_NOT_EXISTS = -9
+    USER_DOES_NOT_EXISTS = -10
 
     @classmethod
     def findSpecificError(cls, errorString):

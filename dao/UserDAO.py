@@ -4,6 +4,7 @@ import pymysql
 from CustomUtils import *
 from Exceptions.EmailCannotBeNull import EmailCannotBeNull
 from Exceptions.EmailExists import EmailExists
+from Exceptions.UserDoesNotExists import UserDoesNotExists
 from Exceptions.UserNameCannotBeNull import UserNameCannotBeNull
 from Exceptions.UserNameExists import UserNameExists
 from Exceptions.UserNotLoggedIn import UserNotLoggedIn
@@ -75,6 +76,29 @@ class UserDAO:
                 return user
             else:
                 raise UserNotLoggedIn
+
+        except Exception as e:
+            print(e)
+            if str(e) != "":
+                return cls.customUtils.findSpecificError(str(e))
+            else:
+                raise e.__class__
+        finally:
+            cursor.close()
+            conn.close()
+
+    @classmethod
+    def getUserDetailsByUserId(cls, user_id):
+        try:
+            conn = mysql.connect()
+            cursor = conn.cursor(pymysql.cursors.DictCursor)
+            cursor.execute("SELECT * FROM users u WHERE u.id = %s",
+                           user_id)
+            user = cursor.fetchone()
+            if user is not None:
+                return user
+            else:
+                raise UserDoesNotExists
 
         except Exception as e:
             print(e)
