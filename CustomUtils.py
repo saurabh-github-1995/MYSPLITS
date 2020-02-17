@@ -17,6 +17,7 @@ class CustomUtils:
     GROUP_NAME_CANNOT_BE_NULL = -8
     GROUP_DOES_NOT_EXISTS = -9
     USER_DOES_NOT_EXISTS = -10
+    INVITE_DOES_NOT_EXISTS = -11
 
     @classmethod
     def findSpecificError(cls, errorString):

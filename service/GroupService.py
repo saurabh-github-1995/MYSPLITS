@@ -38,3 +38,24 @@ class GroupService:
 
         except Exception as e:
             raise e.__class__
+
+    @classmethod
+    def acceptInvite(cls, data, headers):
+        try:
+            currentUser = cls.userService.checkIfUserLoggedIn(headers.get("session_id"))
+            invite = cls.getInviteDetailsByInviteId(data.get("invite_id"))
+            group = cls.getGroupDetailsByGroupId(invite.get("group_id"))
+            responseData = cls.groupDAO.acceptInvite(invite, group)
+            return responseData
+
+        except Exception as e:
+            raise e.__class__
+
+    @classmethod
+    def getInviteDetailsByInviteId(cls, inviteId):
+        try:
+            responseData = cls.groupDAO.getInviteDetailsByInviteId(inviteId)
+            return responseData
+
+        except Exception as e:
+            raise e.__class__

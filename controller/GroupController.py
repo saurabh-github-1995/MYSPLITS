@@ -66,3 +66,43 @@ def getGroupDetailsByGroupId():
             wsResponse['resultSet'] = None
             wsResponse['operationStatus'] = CustomUtils.SOMETHING_WENT_WRONG
     return wsResponse
+
+
+@app.route('/acceptInvite', methods=['POST'])
+def acceptInvite():
+    wsResponse = {"resultSet": None, "operationStatus": None}
+
+    try:
+        responseDate = groupService.acceptInvite(request.json, request.headers)
+
+        wsResponse['resultSet'] = responseDate
+        wsResponse['operationStatus'] = CustomUtils.SUCCESSFULL
+
+    except Exception as e:
+        if e.__class__ != "EXCEPTION":
+            wsResponse['resultSet'] = None
+            wsResponse['operationStatus'] = e.STATUS_CODE
+        else:
+            wsResponse['resultSet'] = None
+            wsResponse['operationStatus'] = CustomUtils.SOMETHING_WENT_WRONG
+    return wsResponse
+
+
+@app.route('/getInviteDetailsByInviteId', methods=['POST'])
+def getInviteDetailsByInviteId():
+    wsResponse = {"resultSet": None, "operationStatus": None}
+
+    try:
+        responseDate = groupService.getInviteDetailsByInviteId(request.json.get("id"))
+
+        wsResponse['resultSet'] = responseDate
+        wsResponse['operationStatus'] = CustomUtils.SUCCESSFULL
+
+    except Exception as e:
+        if e.__class__ != "EXCEPTION":
+            wsResponse['resultSet'] = None
+            wsResponse['operationStatus'] = e.STATUS_CODE
+        else:
+            wsResponse['resultSet'] = None
+            wsResponse['operationStatus'] = CustomUtils.SOMETHING_WENT_WRONG
+    return wsResponse
