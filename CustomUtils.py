@@ -5,3 +5,4 @@ class CustomUtils:
     EMAIL_EXISTS = -3
     USER_NAME_CANNOT_BE_NULL = -4
     EMAIL_CANNOT_BE_NULL = -5
+    WRONG_CREDENTIALS = -6

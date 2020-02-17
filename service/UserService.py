@@ -15,3 +15,13 @@ class UserService:
             return responseData
         except Exception as e:
             raise e.__class__
+
+    @classmethod
+    def loginUser(cls, data):
+        try:
+            responseData = cls.userDAO.loginUser(data)
+            return responseData
+        except Exception as e:
+            print("-----------")
+            print(e.__class__)
+            raise e.__class__
