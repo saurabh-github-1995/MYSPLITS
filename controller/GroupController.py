@@ -53,7 +53,7 @@ def getGroupDetailsByGroupId():
     wsResponse = {"resultSet": None, "operationStatus": None}
 
     try:
-        responseDate = groupService.getGroupDetailsByGroupId(request.json)
+        responseDate = groupService.getGroupDetailsByGroupId(request.json.get("group_id"))
 
         wsResponse['resultSet'] = responseDate
         wsResponse['operationStatus'] = CustomUtils.SUCCESSFULL
@@ -94,6 +94,26 @@ def getInviteDetailsByInviteId():
 
     try:
         responseDate = groupService.getInviteDetailsByInviteId(request.json.get("id"))
+
+        wsResponse['resultSet'] = responseDate
+        wsResponse['operationStatus'] = CustomUtils.SUCCESSFULL
+
+    except Exception as e:
+        if e.__class__ != "EXCEPTION":
+            wsResponse['resultSet'] = None
+            wsResponse['operationStatus'] = e.STATUS_CODE
+        else:
+            wsResponse['resultSet'] = None
+            wsResponse['operationStatus'] = CustomUtils.SOMETHING_WENT_WRONG
+    return wsResponse
+
+
+@app.route('/addExpenses', methods=['POST'])
+def addExpenses():
+    wsResponse = {"resultSet": None, "operationStatus": None}
+
+    try:
+        responseDate = groupService.addExpenses(request.json, request.headers)
 
         wsResponse['resultSet'] = responseDate
         wsResponse['operationStatus'] = CustomUtils.SUCCESSFULL

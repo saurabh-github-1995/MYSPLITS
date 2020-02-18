@@ -1,4 +1,5 @@
 import uuid
+from datetime import datetime
 
 import pymysql
 from CustomUtils import *
@@ -51,6 +52,8 @@ class GroupDAO:
 
     @classmethod
     def getGroupDetailsByGroupId(cls, group_id):
+        print("*******")
+        print(group_id)
         try:
             conn = mysql.connect()
             cursor = conn.cursor(pymysql.cursors.DictCursor)
@@ -135,6 +138,33 @@ class GroupDAO:
                            invite.get("id"))
             conn.commit()
             return None
+        except Exception as e:
+            print(e)
+            if str(e) != "":
+                return cls.customUtils.findSpecificError(str(e))
+            else:
+                raise e.__class__
+        finally:
+            cursor.close()
+            conn.close()
+
+    @classmethod
+    def addExpenses(cls, data, group, user):
+        try:
+            id = str(uuid.uuid4())
+            datestring = data.get("paid_date")
+            dt = datetime.strptime(datestring, '%Y-%m-%d')
+            conn = mysql.connect()
+            cursor = conn.cursor(pymysql.cursors.DictCursor)
+
+            cursor.execute("INSERT INTO expenses (id, description, amount, group_id, group_name, paid_by_id, paid_by_name, paid_for, paid_date, day, month, year) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
+                           (id, data.get("description"), data.get("amount"), group.get("id"), group.get("name"), user.get("id"),
+                            user.get("full_name"), data.get("paid_for"), data.get("paid_date"), dt.day, dt.month, dt.year))
+            conn.commit()
+
+            cursor.execute("SELECT * FROM expenses e where e.id = %s", id)
+            expense = cursor.fetchone()
+            return expense
         except Exception as e:
             print(e)
             if str(e) != "":

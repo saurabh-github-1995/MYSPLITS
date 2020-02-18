@@ -59,3 +59,14 @@ class GroupService:
 
         except Exception as e:
             raise e.__class__
+
+    @classmethod
+    def addExpenses(cls, data, headers):
+        try:
+            user = cls.userService.checkIfUserLoggedIn(headers.get("session_id"))
+            group = cls.getGroupDetailsByGroupId(data.get("group_id"))
+            responseData = cls.groupDAO.addExpenses(data, group, user)
+            return responseData
+
+        except Exception as e:
+            raise e.__class__
