@@ -166,6 +166,7 @@ class GroupDAO:
 
             cursor.execute("SELECT * FROM expenses e where e.id = %s", id)
             expense = cursor.fetchone()
+            cls.splitExpenses(expense)
             return expense
         except Exception as e:
             print(e)
@@ -200,6 +201,39 @@ class GroupDAO:
                      member.get("member_name"), invite.get("invited_to_name"), invite.get("invited_to_id")))
                 conn.commit()
 
+            return None
+        except Exception as e:
+            print(e)
+            if str(e) != "":
+                return cls.customUtils.findSpecificError(str(e))
+            else:
+                raise e.__class__
+        finally:
+            cursor.close()
+            conn.close()
+
+    @classmethod
+    def splitExpenses(cls, expense):
+        try:
+            conn = mysql.connect()
+            cursor = conn.cursor(pymysql.cursors.DictCursor)
+
+            cursor.execute("SELECT * FROM expenses_splits es WHERE es.groupd_id = %s", expense.get("group_id"))
+            members_mapping = cursor.fetchall()
+
+            cursor.execute("SELECT * FROM group_members gm WHERE gm.group_id = %s", expense.get("group_id"))
+            group_members = cursor.fetchall()
+
+            contribution = expense.get("amount") / len(group_members)
+            negContribution = -contribution
+            for mapping in members_mapping:
+                if expense.get("paid_by_id") == mapping.get("owes_to_member_id"):
+                    cursor.execute("UPDATE expenses_splits es SET es.amount = es.amount+ %s WHERE es.id = %s" , (contribution, mapping.get("id")))
+                    conn.commit()
+                elif expense.get("paid_by_id") == mapping.get("owes_member_id"):
+                    cursor.execute("UPDATE expenses_splits es SET es.amount = es.amount+ %s WHERE es.id = %s",
+                                   (negContribution, mapping.get("id")))
+                    conn.commit()
             return None
         except Exception as e:
             print(e)
