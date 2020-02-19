@@ -1,1 +1,45 @@
 /* You can add global styles to this file, and also import other style files */
+
+.theme-button-color {
+  background: #8655fc;
+  color: #fff;
+  border-radius: 20px;
+}
+
+.theme-button-color2 {
+  background: #fb5757;
+  color: #fff;
+  border-radius: 20px;
+}
+
+.login-container {
+  max-width: 450px;
+  margin: auto;
+  margin-top: 60px
+}
+
+.login-signup-title {
+  letter-spacing: 0;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 7px;
+  text-align: center;
+  padding: 50px;
+  color: #303641;
+  color: white;
+  background: #8655fc;
+}
+
+.login-signup-button-container {
+  display: flex;
+  margin: 0px;
+  padding: 0px;
+  justify-content: space-around;
+  padding-bottom: 20px;
+}
+
+.login-input-fields {
+  width: 90%;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
