@@ -137,6 +137,7 @@ class GroupDAO:
             cursor.execute("UPDATE group_invites gi SET gi.invitation_status = 'ACCEPTED' WHERE gi.id = %s",
                            invite.get("id"))
             conn.commit()
+            cls.addMemebrMapping(invite, group.get("id"))
             return None
         except Exception as e:
             print(e)
@@ -157,14 +158,49 @@ class GroupDAO:
             conn = mysql.connect()
             cursor = conn.cursor(pymysql.cursors.DictCursor)
 
-            cursor.execute("INSERT INTO expenses (id, description, amount, group_id, group_name, paid_by_id, paid_by_name, paid_for, paid_date, day, month, year) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
-                           (id, data.get("description"), data.get("amount"), group.get("id"), group.get("name"), user.get("id"),
-                            user.get("full_name"), data.get("paid_for"), data.get("paid_date"), dt.day, dt.month, dt.year))
+            cursor.execute(
+                "INSERT INTO expenses (id, description, amount, group_id, group_name, paid_by_id, paid_by_name, paid_for, paid_date, day, month, year) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
+                (id, data.get("description"), data.get("amount"), group.get("id"), group.get("name"), user.get("id"),
+                 user.get("full_name"), data.get("paid_for"), data.get("paid_date"), dt.day, dt.month, dt.year))
             conn.commit()
 
             cursor.execute("SELECT * FROM expenses e where e.id = %s", id)
             expense = cursor.fetchone()
             return expense
+        except Exception as e:
+            print(e)
+            if str(e) != "":
+                return cls.customUtils.findSpecificError(str(e))
+            else:
+                raise e.__class__
+        finally:
+            cursor.close()
+            conn.close()
+
+    @classmethod
+    def addMemebrMapping(cls, invite, groupId):
+        try:
+
+            conn = mysql.connect()
+            cursor = conn.cursor(pymysql.cursors.DictCursor)
+
+            cursor.execute("SELECT * FROM group_members gm where gm.group_id = %s AND gm.member_id != %s",
+                           (groupId, invite.get("invited_to_id")))
+            members = cursor.fetchall()
+
+            for member in members:
+                mappingid = str(uuid.uuid4())
+                mappingid1 = str(uuid.uuid4())
+                cursor.execute("INSERT INTO expenses_splits (id, groupd_id, group_name, owes_member_id, owes_member_name, owes_to_member_name, owes_to_member_id) VALUES (%s,%s,%s,%s,%s,%s,%s)",
+                               (mappingid, groupId, invite.get("group_name"), invite.get("invited_to_id"),invite.get("invited_to_name"), member.get("member_name"), member.get("member_id")))
+                conn.commit()
+                cursor.execute(
+                    "INSERT INTO expenses_splits (id, groupd_id, group_name, owes_member_id, owes_member_name, owes_to_member_name, owes_to_member_id) VALUES (%s,%s,%s,%s,%s,%s,%s)",
+                    (mappingid1, groupId, invite.get("group_name"), member.get("member_id"),
+                     member.get("member_name"), invite.get("invited_to_name"), invite.get("invited_to_id")))
+                conn.commit()
+
+            return None
         except Exception as e:
             print(e)
             if str(e) != "":
