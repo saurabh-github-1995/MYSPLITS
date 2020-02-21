@@ -43,3 +43,59 @@
   margin-left: auto !important;
   margin-right: auto !important;
 }
+
+/**********/
+
+.custom-modal {
+  z-index: 100000;
+  position: fixed;
+  background: #0000005c;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  align-items: center;
+}
+
+.modal-body {
+  width: 450px;
+  position: relative;
+  background: white;
+  height: 200px;
+  border-radius: 2px;
+  box-shadow: 0 24px 38px 3px rgba(0, 0, 0, 0.14), 0 9px 46px 8px rgba(0, 0, 0, 0.12), 0 11px 15px -7px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+  padding: 20px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.modal-header p {
+  padding: 0px;
+  margin: 0px;
+}
+
+.modal-content {
+  padding: 0px 20px;
+  text-align: center;
+}
+
+.modal-content p{
+  padding: 0px;
+  margin: 0px;
+}
+.modal-footer{
+    position: absolute;
+    bottom: 0;
+    right: 27px;
+    cursor: pointer;
+}
+.loader-image{
+  width: 50px;
+}

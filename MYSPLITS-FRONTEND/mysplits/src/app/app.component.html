@@ -1,3 +1,28 @@
 <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-<router-outlet></router-outlet>
+<router-outlet>
+
+  <!-- Modal Trigger -->
+
+
+
+<div class="custom-modal" *ngIf="shoModal" (click)="closeModal()">
+  <div class="modal-body z-depth-2">
+    <div class="modal-header">
+      <p>HEADER</p>
+    </div>
+    <div class="modal-content">
+      <p>Something went wrong please try again later</p>
+    </div>
+    <div class="modal-footer" (click)="closeModal()">
+      <p><i class="small material-icons">clear</i></p>
+
+    </div>
+  </div>
+</div>
+<div class="custom-modal" *ngIf="show_Loader">
+  <div class="loader-image">
+    <img src="../assets/images/loading.gif">
+  </div>
+</div>
+</router-outlet>
