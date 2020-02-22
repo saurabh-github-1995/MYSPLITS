@@ -9,10 +9,10 @@
 <div class="custom-modal" *ngIf="shoModal" (click)="closeModal()">
   <div class="modal-body z-depth-2">
     <div class="modal-header">
-      <p>HEADER</p>
+      <p>{{header}}</p>
     </div>
     <div class="modal-content">
-      <p>Something went wrong please try again later</p>
+      <p>{{message}}</p>
     </div>
     <div class="modal-footer" (click)="closeModal()">
       <p><i class="small material-icons">clear</i></p>
@@ -22,7 +22,7 @@
 </div>
 <div class="custom-modal" *ngIf="show_Loader">
   <div class="loader-image">
-    <img src="../assets/images/loading.gif">
+    <img src="../assets/images/loading.gif" class="loader-image">
   </div>
 </div>
 </router-outlet>
