@@ -99,3 +99,8 @@
 .loader-image{
   width: 50px;
 }
+
+.form-error-messages{
+  text-align: center;
+    color: red;
+}

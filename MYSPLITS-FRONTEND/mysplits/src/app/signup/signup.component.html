@@ -7,24 +7,24 @@
       <div class="row login-input-fields">
         <div class="input-field col s12">
           <input id="email" type="text" class="validate" [(ngModel)]="fullname">
-          <label for="email">Full Name</label>
+          <label for="email">Full Name*</label>
         </div>
         <div class="input-field col s12">
           <input id="email" type="email" class="validate" [(ngModel)]="email">
-          <label for="email">Email</label>
+          <label for="email">Email*</label>
         </div>
 
         <div class="input-field col s12">
           <input id="email" type="text" class="validate" [(ngModel)]="username">
-          <label for="email">User Name</label>
+          <label for="email">User Name*</label>
         </div>
         <div class="input-field col s12">
           <input id="email" type="password" class="validate" [(ngModel)]="password">
-          <label for="email">Password</label>
+          <label for="email">Password*</label>
         </div>
         <div class="input-field col s12">
           <input id="email" type="password" class="validate" [(ngModel)]="cnfrm_password">
-          <label for="email">Confirm Password</label>
+          <label for="email">Confirm Password*</label>
         </div>
 
 
@@ -32,9 +32,14 @@
 
     </div>
   </div>
+  <div class="form-error-messages">
+    <span>{{this.local_error_message}}</span>
+  </div>
+
   <div class="login-signup-button-container">
-    <p><a class="waves-effect waves-light btn theme-button-color2"><i class="material-icons right">person_add</i>SIGNUP</a></p>
-<p><a class="waves-effect waves-light btn  theme-button-color" (click)="loginUser()" routerLink="/login"><i
+    <p><a class="waves-effect waves-light btn theme-button-color2" (click)="signup()" ><i
+          class="material-icons right">person_add</i>SIGNUP</a></p>
+    <p><a class="waves-effect waves-light btn  theme-button-color" routerLink="/login"><i
           class="material-icons right">send</i>LOGIN</a></p>
 
   </div>

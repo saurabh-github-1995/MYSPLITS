@@ -29,18 +29,29 @@ export class AppComponent {
     INVITE_DOES_NOT_EXISTS = -11;
     AMOUNT_CANNOT_BE_NULL = -12;
     PAID_FOR_CANNOT_BE_NULL = -13;
+    PASSWORD_CANNOT_BE_NULL = -14
 
   getSpecificError(operationStatus: any) {
     if(operationStatus==this.SOMETHING_WENT_WRONG){
-      alert("");
+      this.header = "ERROR";
+      this.message = "Something Went wrong , Please try again later";
+      this.shoModal=true;
     }else if(operationStatus==this.USER_NAME_EXIST){
-      alert("");
+      this.header = "ERROR";
+      this.message = "Username already exists";
+      this.shoModal=true;
     }else if(operationStatus==this.EMAIL_EXISTS){
-      alert("");
+      this.header = "ERROR";
+      this.message = "Account with this emails already exists";
+      this.shoModal=true;
     }else if(operationStatus==this.USER_NAME_CANNOT_BE_NULL){
-      alert("");
+      this.header = "ERROR";
+      this.message = "Please Enter Username";
+      this.shoModal=true;
     }else if(operationStatus==this.EMAIL_CANNOT_BE_NULL){
-      alert("");
+      this.header = "ERROR";
+      this.message = "Please enter email id";
+      this.shoModal=true;
     }else if(operationStatus==this.WRONG_CREDENTIALS){
       //alert("User with this credentials does not exist");
       this.header = "ERROR";
@@ -61,6 +72,10 @@ export class AppComponent {
       alert("");
     }else if(operationStatus==this.PAID_FOR_CANNOT_BE_NULL){
       alert("");
+    }else if(operationStatus==this.PASSWORD_CANNOT_BE_NULL){
+      this.header = "ERROR";
+      this.message = "Please Choose Password";
+      this.shoModal=true;
     }else{
       alert("");
     }
