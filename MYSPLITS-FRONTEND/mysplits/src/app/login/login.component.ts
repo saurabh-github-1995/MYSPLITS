@@ -4,6 +4,7 @@ import { ServerEndPointsService } from './../services/SERVERENDPOINTS/server-end
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +19,8 @@ export class LoginComponent implements OnInit {
     public httpClient: HttpClient,
     public serverEndpoints: ServerEndPointsService,
     public datasourceService: DatasourceService,
-    public appComponent:AppComponent) { }
+    public appComponent:AppComponent,
+    public router:Router) { }
 
   ngOnInit() {
 
@@ -45,6 +47,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem(this.serverEndpoints.LOGGED_IN_USER_NAME, user.full_name);
         localStorage.setItem(this.serverEndpoints.LOGGED_IN_USER_ID, user.id);
         this.appComponent.hideLoader();
+        this.router.navigate(['/dashboard']);
       } else {
         //alert("SPMETHING WENT WRONG");
         this.appComponent.hideLoader();
