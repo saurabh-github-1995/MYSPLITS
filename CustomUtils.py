@@ -3,6 +3,7 @@ from Exceptions.EmailCannotBeNull import EmailCannotBeNull
 from Exceptions.EmailExists import EmailExists
 from Exceptions.GroupNameCannotBeNull import GroupNameCannotBeNull
 from Exceptions.PaidForCannotBeNull import PaidForCannotBeNull
+from Exceptions.PasswordCannotBeNull import PasswordCannotBeNull
 from Exceptions.UserNameCannotBeNull import UserNameCannotBeNull
 from Exceptions.UserNameExists import UserNameExists
 
@@ -22,6 +23,7 @@ class CustomUtils:
     INVITE_DOES_NOT_EXISTS = -11
     AMOUNT_CANNOT_BE_NULL = -12
     PAID_FOR_CANNOT_BE_NULL = -13
+    PASSWORD_CANNOT_BE_NULL = -14
 
     @classmethod
     def findSpecificError(cls, errorString):
@@ -39,5 +41,7 @@ class CustomUtils:
             raise AmountCannotBeNull
         elif "Column 'paid_for' cannot be null" in errorString:
             raise PaidForCannotBeNull
+        elif "Column 'password' cannot be null" in errorString:
+            raise PasswordCannotBeNull
         else:
             raise Exception

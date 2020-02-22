@@ -192,8 +192,10 @@ class GroupDAO:
             for member in members:
                 mappingid = str(uuid.uuid4())
                 mappingid1 = str(uuid.uuid4())
-                cursor.execute("INSERT INTO expenses_splits (id, groupd_id, group_name, owes_member_id, owes_member_name, owes_to_member_name, owes_to_member_id) VALUES (%s,%s,%s,%s,%s,%s,%s)",
-                               (mappingid, groupId, invite.get("group_name"), invite.get("invited_to_id"),invite.get("invited_to_name"), member.get("member_name"), member.get("member_id")))
+                cursor.execute(
+                    "INSERT INTO expenses_splits (id, groupd_id, group_name, owes_member_id, owes_member_name, owes_to_member_name, owes_to_member_id) VALUES (%s,%s,%s,%s,%s,%s,%s)",
+                    (mappingid, groupId, invite.get("group_name"), invite.get("invited_to_id"),
+                     invite.get("invited_to_name"), member.get("member_name"), member.get("member_id")))
                 conn.commit()
                 cursor.execute(
                     "INSERT INTO expenses_splits (id, groupd_id, group_name, owes_member_id, owes_member_name, owes_to_member_name, owes_to_member_id) VALUES (%s,%s,%s,%s,%s,%s,%s)",
@@ -228,7 +230,8 @@ class GroupDAO:
             negContribution = -contribution
             for mapping in members_mapping:
                 if expense.get("paid_by_id") == mapping.get("owes_to_member_id"):
-                    cursor.execute("UPDATE expenses_splits es SET es.amount = es.amount+ %s WHERE es.id = %s" , (contribution, mapping.get("id")))
+                    cursor.execute("UPDATE expenses_splits es SET es.amount = es.amount+ %s WHERE es.id = %s",
+                                   (contribution, mapping.get("id")))
                     conn.commit()
                 elif expense.get("paid_by_id") == mapping.get("owes_member_id"):
                     cursor.execute("UPDATE expenses_splits es SET es.amount = es.amount+ %s WHERE es.id = %s",
