@@ -247,3 +247,22 @@ class GroupDAO:
         finally:
             cursor.close()
             conn.close()
+
+    @classmethod
+    def getMembersGroups(cls, userId):
+        try:
+            conn = mysql.connect()
+            cursor = conn.cursor(pymysql.cursors.DictCursor)
+
+            cursor.execute("SELECT * FROM group_members gm LEFT JOIN app_group ag ON gm.group_id = ag.id WHERE gm.member_id = %s", userId)
+            groups = cursor.fetchall()
+            return groups
+        except Exception as e:
+            print(e)
+            if str(e) != "":
+                return cls.customUtils.findSpecificError(str(e))
+            else:
+                raise e.__class__
+        finally:
+            cursor.close()
+            conn.close()

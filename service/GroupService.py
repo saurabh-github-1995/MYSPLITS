@@ -70,3 +70,14 @@ class GroupService:
 
         except Exception as e:
             raise e.__class__
+
+    @classmethod
+    def getMembersGroups(cls, headers):
+        try:
+            user = cls.userService.checkIfUserLoggedIn(headers.get("session_id"))
+            groups = cls.groupDAO.getMembersGroups(user.get("id"))
+
+            return groups
+
+        except Exception as e:
+            raise e.__class__
