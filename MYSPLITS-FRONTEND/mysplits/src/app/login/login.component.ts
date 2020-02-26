@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem(this.serverEndpoints.LOGGED_IN_USER_NAME, user.full_name);
         localStorage.setItem(this.serverEndpoints.LOGGED_IN_USER_ID, user.id);
         this.appComponent.hideLoader();
-        this.router.navigate(['/dashboard']);
+        this.router.navigate(['/dashboard/groups']);
       } else {
         //alert("SPMETHING WENT WRONG");
         this.appComponent.hideLoader();

@@ -8,13 +8,15 @@ import { SignupComponent } from './signup/signup.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { DASHBOARDComponent } from './dashboard/dashboard.component';
+import { AppgroupsComponent } from './dashboard/appgroups/appgroups.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     SignupComponent,
-    DASHBOARDComponent
+    DASHBOARDComponent,
+    AppgroupsComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,22 @@
+<div class="page-header">
+  <h5>All Groups</h5>
+</div>
+
+<div class="group-list-flex-container">
+  <div *ngFor="let g of groups" class="group-list-flex-items">
+    <div class="avatar-and-name-flex-container">
+      <div>
+        <img src="../../../assets/images/icon-group.png" class="avatar-image">
+      </div>
+      <div>
+        <h6 class="group-headers">{{g.name}}</h6>
+      </div>
+    </div>
+
+
+    <div>{{g.discription}}</div>
+    <div>Type - {{g.type}}</div>
+    <div>Currency - {{g.currency}}</div>
+    <div>Created By - {{g.created_by_name}}</div>
+  </div>
+</div>

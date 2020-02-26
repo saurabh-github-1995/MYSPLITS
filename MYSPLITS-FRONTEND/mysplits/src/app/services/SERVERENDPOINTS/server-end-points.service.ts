@@ -18,4 +18,5 @@ export class ServerEndPointsService {
   /**********************ENDPOINTS******************************** */
   LOGINUSER="loginUser";
   REGISTRAION="userRegistration";
+  GETMEMBERSGROUPS = "getMembersGroups";
 }
