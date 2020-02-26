@@ -9,6 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { DASHBOARDComponent } from './dashboard/dashboard.component';
 import { AppgroupsComponent } from './dashboard/appgroups/appgroups.component';
+import { GroupdetailsComponent } from './dashboard/groupdetails/groupdetails.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { AppgroupsComponent } from './dashboard/appgroups/appgroups.component';
     LoginComponent,
     SignupComponent,
     DASHBOARDComponent,
-    AppgroupsComponent
+    AppgroupsComponent,
+    GroupdetailsComponent
   ],
   imports: [
     BrowserModule,
