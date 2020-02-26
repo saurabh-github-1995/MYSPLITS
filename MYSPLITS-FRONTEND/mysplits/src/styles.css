@@ -178,3 +178,46 @@ box-shadow: 1px 0px 31px -7px rgba(217,217,217,1);
 .avatar-image{
   width:45px;
 }
+.expenses-container{
+    width: 90%;
+    margin: auto;
+    margin-top: 20px;
+}
+.expenses-list{
+  box-shadow: 3px 3px 12px 0px rgba(218, 218, 218, 0.8);
+  padding: 0px 16px;
+}
+.expenses-list p{
+  margin: 0;
+  padding: 20px 0px;
+  font-weight: 500;
+}
+.expenses-list:nth-child(odd){
+
+}
+.expenses-list:nth-child(even){
+  background-color: rgba(233, 200, 147, 0.2);
+}
+.p-margin-0{
+  margin: 0;
+}
+.expense-list-header{
+  background-color: #777777;
+  color: white;
+  padding: 16px;
+  display: flex;
+}
+.group-header{
+  font-weight: bold;
+    font-size: 20px;
+    color: #777777;
+}
+.expense-list-header-items{
+  width: 20%;
+}
+.expenses-list-items{
+  width: 20%;
+}
+.expenses-list-data{
+  display: flex;
+}

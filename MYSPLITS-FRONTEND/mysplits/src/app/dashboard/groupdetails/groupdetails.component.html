@@ -1,0 +1,40 @@
+<div class="expenses-container">
+  <p class="group-header">{{groups.name}}</p>
+  <div class="expense-list-header">
+    <div class="expense-list-header-items">
+      <p class="p-margin-0 ">Paid By</p>
+    </div>
+    <div class="expense-list-header-items">
+      <p class="p-margin-0 ">Amount</p>
+    </div>
+    <div class="expense-list-header-items">
+      <p class="p-margin-0 ">Paid Date</p>
+    </div>
+    <div class="expense-list-header-items">
+      <p class="p-margin-0 ">paid For</p>
+    </div>
+    <div class="expense-list-header-items">
+      <p class="p-margin-0 ">Actions</p>
+    </div>
+  </div>
+  <div *ngFor="let ex of expensesList" class="expenses-list">
+    <div class="expenses-list-data">
+      <div class="expenses-list-items">
+        <p class="p-margin-0 ">{{ex.paid_by_name}}</p>
+      </div>
+      <div class="expenses-list-items">
+        <p class="p-margin-0 ">{{ex.amount}}</p>
+      </div>
+      <div class="expenses-list-items">
+        <p class="p-margin-0 ">{{ex.paid_date | date: 'dd/MM/yyyy'}}</p>
+      </div>
+      <div class="expenses-list-items">
+        <p class="p-margin-0 ">{{ex.paid_for}}</p>
+      </div>
+      <div class="expenses-list-items">
+        <p class="p-margin-0 "></p>
+      </div>
+    </div>
+
+  </div>
+</div>
