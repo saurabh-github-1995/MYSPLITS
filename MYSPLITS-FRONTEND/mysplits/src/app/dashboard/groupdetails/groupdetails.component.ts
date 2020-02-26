@@ -21,6 +21,8 @@ export class GroupdetailsComponent implements OnInit {
   amount;
   description;
   local_error_message: string;
+  allUsers: null;
+  search_text: any;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -155,4 +157,70 @@ export class GroupdetailsComponent implements OnInit {
 
   }
 
+  searchUser() {
+    this.appComponent.showLoader();
+    //debugger
+    let header = {
+      "session_id": localStorage.getItem("LOGGED_IN_USER_SEESION_ID")
+    }
+    let data = {
+      "search_text": this.search_text+"*",
+      "created_by":this.groups.created_by
+    }
+    this.httpClient.post(this.serverEndpoints.SERVERURL + this.serverEndpoints.SEARCHFORMEMBER, data, { headers: header }).subscribe((response: any) => {
+      this.appComponent.hideLoader();
+      if (response.operationStatus == this.serverEndpoints.OPERATION_SUCESSESULL) {
+        this.allUsers  = response.resultSet;
+
+
+      } else {
+        //alert("SPMETHING WENT WRONG");
+        this.appComponent.hideLoader();
+        this.appComponent.getSpecificError(response.operationStatus);
+      }
+
+    }, (error: Response) => {
+      this.appComponent.hideLoader();
+      alert("SPMETHING WENT WRONG**");
+      if (error.status === 404) {
+        console.log('Wrong url');
+      } else if (error.status === 400) {
+      }
+    });
+
+  }
+  inviteMemberToGroup(userId) {
+    this.appComponent.showLoader();
+    //debugger
+    let header = {
+      "session_id": localStorage.getItem("LOGGED_IN_USER_SEESION_ID")
+    }
+    let data = {
+      "user_id":userId,
+      "group_id":this.globalGroupId
+    }
+    this.httpClient.post(this.serverEndpoints.SERVERURL + this.serverEndpoints.INVITEMEMBERTOGROUP, data, { headers: header }).subscribe((response: any) => {
+      this.appComponent.hideLoader();
+      if (response.operationStatus == this.serverEndpoints.OPERATION_SUCESSESULL) {
+        alert("SUCCESS")
+
+
+      } else {
+        //alert("SPMETHING WENT WRONG");
+        this.appComponent.hideLoader();
+        this.appComponent.getSpecificError(response.operationStatus);
+      }
+
+    }, (error: Response) => {
+      this.appComponent.hideLoader();
+      alert("SPMETHING WENT WRONG**");
+      if (error.status === 404) {
+        console.log('Wrong url');
+      } else if (error.status === 400) {
+      }
+    });
+
+  }
+
+//inviteMemberToGroup
 }

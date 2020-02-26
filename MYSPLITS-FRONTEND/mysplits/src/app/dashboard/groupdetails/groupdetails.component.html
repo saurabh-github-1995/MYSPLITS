@@ -4,9 +4,13 @@
 <div class="expenses-container">
 
   <div class="add-expense-button-container">
-    <button class="btn waves-effect waves-light blue accent-3" type="submit" name="action"
+    <button class="btn waves-effect waves-light blue accent-3 add-buttons" type="submit" name="action"
       (click)="showAddExpenseForm()">Add Expense
       <i class="material-icons right">add_box</i>
+    </button>
+    <button class="btn waves-effect waves-light lime add-buttons" type="submit" name="action"
+      (click)="showAddExpenseForm()">Add Member
+      <i class="fa fa-user-plus" aria-hidden="true"></i>
     </button>
   </div>
 
@@ -46,6 +50,36 @@
       </div>
     </div>
   </div>
+  <div class="add-expense-form-div" id="searchUser" style="display: block;">
+    <form class="row" autocomplete="off">
+      <div class="col s12">
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="first_name" type="text" class="validate" [(ngModel)]="search_text" [ngModelOptions]="{standalone: true}">
+            <label for="first_name">Type Name, Username or email</label>
+          </div>
+          <p>{{local_error_message}}</p>
+          <div style="text-align: center;">
+            <button class="btn waves-effect waves-light  red accent-3" type="submit" name="action"
+            (click)="searchUser()">Search
+            <i class="material-icons right">search</i>
+          </button>
+          </div>
+
+        </div>
+
+
+      </div>
+    </form>
+    <div>
+      <p class="add-users-message">Click on users to send invite</p>
+      <div *ngFor="let au of allUsers" class="users-list" (click)="inviteMemberToGroup(au.id)">
+        <p>{{au.full_name}} - {{au.email}}</p>
+      </div>
+    </div>
+
+  </div>
+
   <div class="expense-list-header">
     <div class="expense-list-header-items">
       <p class="p-margin-0 ">Paid By</p>

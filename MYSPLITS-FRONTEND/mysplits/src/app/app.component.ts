@@ -30,6 +30,7 @@ export class AppComponent {
     AMOUNT_CANNOT_BE_NULL = -12;
     PAID_FOR_CANNOT_BE_NULL = -13;
     PASSWORD_CANNOT_BE_NULL = -14
+    INVITATION_ALREADY_SENT = -15
 
   getSpecificError(operationStatus: any) {
     if(operationStatus==this.SOMETHING_WENT_WRONG){
@@ -75,6 +76,10 @@ export class AppComponent {
     }else if(operationStatus==this.PASSWORD_CANNOT_BE_NULL){
       this.header = "ERROR";
       this.message = "Please Choose Password";
+      this.shoModal=true;
+    }else if(operationStatus==this.INVITATION_ALREADY_SENT){
+      this.header = "ERROR";
+      this.message = "Either Invitation already sent or user already a member of group";
       this.shoModal=true;
     }else{
       alert("");

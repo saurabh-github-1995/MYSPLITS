@@ -258,3 +258,21 @@ box-shadow: 1px 0px 31px -7px rgba(217,217,217,1);
     text-align: center;
 
 }
+.add-buttons{
+  margin: 0px 5px;
+}
+.users-list{
+    padding: 11px;
+    border-bottom: 1px solid grey;
+    cursor: pointer;
+
+}
+.users-list p{
+  margin: 0px;
+}
+.add-users-message{
+    border-bottom: 1px solid grey;
+    margin: 0;
+    padding-left: 11px;
+    color: #8686f7;
+}

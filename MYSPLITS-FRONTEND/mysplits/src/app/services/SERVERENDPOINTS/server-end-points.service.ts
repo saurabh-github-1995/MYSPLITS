@@ -22,4 +22,7 @@ export class ServerEndPointsService {
   GETGROUPEXPENSESLIST = "getGroupExpensesList";
   GETGROUPDETAILSBYGROUPID = "getGroupDetailsByGroupId";
   ADDEXPENSES="addExpenses";
+  GETALLUSERSEXCEPTSELF="getAllUsersExceptSelf";
+  SEARCHFORMEMBER = "searchForMember";
+  INVITEMEMBERTOGROUP = "inviteMemberToGroup";
 }
