@@ -266,3 +266,24 @@ class GroupDAO:
         finally:
             cursor.close()
             conn.close()
+
+    @classmethod
+    def getGroupExpensesList(cls, data):
+        try:
+            conn = mysql.connect()
+            cursor = conn.cursor(pymysql.cursors.DictCursor)
+
+            cursor.execute(
+                "SELECT * FROM expenses e WHERE e.group_id = %s ORDER BY e.created_on DESC",
+                data.get('group_id'))
+            expenses = cursor.fetchall()
+            return expenses
+        except Exception as e:
+            print(e)
+            if str(e) != "":
+                return cls.customUtils.findSpecificError(str(e))
+            else:
+                raise e.__class__
+        finally:
+            cursor.close()
+            conn.close()

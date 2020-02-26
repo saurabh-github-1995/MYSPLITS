@@ -146,3 +146,23 @@ def getMembersGroups():
             wsResponse['resultSet'] = None
             wsResponse['operationStatus'] = CustomUtils.SOMETHING_WENT_WRONG
     return wsResponse
+
+
+@app.route('/getGroupExpensesList', methods=['POST'])
+def getGroupExpensesList():
+    wsResponse = {"resultSet": None, "operationStatus": None}
+
+    try:
+        responseDate = groupService.getGroupExpensesList(request.headers,request.data)
+
+        wsResponse['resultSet'] = responseDate
+        wsResponse['operationStatus'] = CustomUtils.SUCCESSFULL
+
+    except Exception as e:
+        if e.__class__ != "EXCEPTION":
+            wsResponse['resultSet'] = None
+            wsResponse['operationStatus'] = e.STATUS_CODE
+        else:
+            wsResponse['resultSet'] = None
+            wsResponse['operationStatus'] = CustomUtils.SOMETHING_WENT_WRONG
+    return wsResponse

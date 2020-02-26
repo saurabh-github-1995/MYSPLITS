@@ -49,7 +49,10 @@ class UserDAO:
                 cursor.execute("UPDATE users u SET u.session_id = %s WHERE u.user_name = %s AND u.password=%s",
                                (session_id, data.get('user_name'), data.get('password')))
                 conn.commit()
-                return user[0]
+                cursor.execute("SELECT * FROM users u WHERE u.user_name = %s AND u.password=%s",
+                               (data.get('user_name'), data.get('password')))
+                user1 = cursor.fetchone()
+                return user1
             else:
                 raise WrongCredentials
 
