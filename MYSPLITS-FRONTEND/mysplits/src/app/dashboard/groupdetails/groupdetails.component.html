@@ -1,17 +1,63 @@
+<p class="group-header">{{groups.name}}</p>
+
+
 <div class="expenses-container">
-  <p class="group-header">{{groups.name}}</p>
+
+  <div class="add-expense-button-container">
+    <button class="btn waves-effect waves-light blue accent-3" type="submit" name="action"
+      (click)="showAddExpenseForm()">Add Expense
+      <i class="material-icons right">add_box</i>
+    </button>
+  </div>
+
+  <div class="add-expense-form-div" id="addExpenseForm">
+    <div class="row">
+      <div class="col s12">
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="first_name" type="text" class="validate" [(ngModel)]="paid_for">
+            <label for="first_name">Paid For*</label>
+          </div>
+          <div class="input-field col s12">
+            <input id="last_name" type="date" class="validate" [(ngModel)]="paid_date">
+            <label for="last_name">Date*</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input type="number" class="validate" [(ngModel)]="amount">
+            <label for="disabled">Amount*</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="password" type="text" class="validate" [(ngModel)]="description">
+            <label for="password">Description*</label>
+          </div>
+        </div>
+        <div class="row" style="text-align: center;">
+          <p>{{local_error_message}}</p>
+          <button class="btn waves-effect waves-light  red accent-3" type="submit" name="action"
+            (click)="addExpense()">Add
+            <i class="material-icons right">send</i>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
   <div class="expense-list-header">
     <div class="expense-list-header-items">
       <p class="p-margin-0 ">Paid By</p>
     </div>
     <div class="expense-list-header-items">
-      <p class="p-margin-0 ">Amount</p>
+      <p class="p-margin-0 ">Amount ({{groups.currency}})</p>
     </div>
     <div class="expense-list-header-items">
       <p class="p-margin-0 ">Paid Date</p>
     </div>
     <div class="expense-list-header-items">
-      <p class="p-margin-0 ">paid For</p>
+      <p class="p-margin-0 ">Paid For</p>
     </div>
     <div class="expense-list-header-items">
       <p class="p-margin-0 ">Actions</p>

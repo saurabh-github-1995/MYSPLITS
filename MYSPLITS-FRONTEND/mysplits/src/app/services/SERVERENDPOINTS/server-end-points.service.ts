@@ -21,4 +21,5 @@ export class ServerEndPointsService {
   GETMEMBERSGROUPS = "getMembersGroups";
   GETGROUPEXPENSESLIST = "getGroupExpensesList";
   GETGROUPDETAILSBYGROUPID = "getGroupDetailsByGroupId";
+  ADDEXPENSES="addExpenses";
 }

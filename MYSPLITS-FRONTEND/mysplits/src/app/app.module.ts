@@ -10,7 +10,10 @@ import { FormsModule } from '@angular/forms';
 import { DASHBOARDComponent } from './dashboard/dashboard.component';
 import { AppgroupsComponent } from './dashboard/appgroups/appgroups.component';
 import { GroupdetailsComponent } from './dashboard/groupdetails/groupdetails.component';
+import * as $ from 'jquery';
 
+//declare var $: any;
+console.log(`jQuery version: ${$.fn.jquery}`);
 @NgModule({
   declarations: [
     AppComponent,
