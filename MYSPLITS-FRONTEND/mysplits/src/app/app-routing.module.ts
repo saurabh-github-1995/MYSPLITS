@@ -1,3 +1,4 @@
+import { GroupdetailsComponent } from './dashboard/groupdetails/groupdetails.component';
 import { AppgroupsComponent } from './dashboard/appgroups/appgroups.component';
 
 import { DASHBOARDComponent } from './dashboard/dashboard.component';
@@ -15,6 +16,9 @@ const routes: Routes = [
       {
         path: 'groups',
         component: AppgroupsComponent
+      },{
+        path: 'groupdetails',
+        component: GroupdetailsComponent
       }]
   }];
 

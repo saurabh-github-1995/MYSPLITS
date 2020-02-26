@@ -19,4 +19,6 @@ export class ServerEndPointsService {
   LOGINUSER="loginUser";
   REGISTRAION="userRegistration";
   GETMEMBERSGROUPS = "getMembersGroups";
+  GETGROUPEXPENSESLIST = "getGroupExpensesList";
+  GETGROUPDETAILSBYGROUPID = "getGroupDetailsByGroupId";
 }

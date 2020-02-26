@@ -53,5 +53,7 @@ export class AppgroupsComponent implements OnInit {
     });
 
   }
-
+  navigateToGroupDetials(groupId){
+    this.router.navigate(['/dashboard/groupdetails'],{ queryParams: { grp: groupId } });
+  }
 }
