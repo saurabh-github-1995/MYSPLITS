@@ -255,7 +255,9 @@ class GroupDAO:
             conn = mysql.connect()
             cursor = conn.cursor(pymysql.cursors.DictCursor)
 
-            cursor.execute("SELECT * FROM group_members gm LEFT JOIN app_group ag ON gm.group_id = ag.id WHERE gm.member_id = %s", userId)
+            cursor.execute(
+                "SELECT * FROM group_members gm LEFT JOIN app_group ag ON gm.group_id = ag.id WHERE gm.member_id = %s",
+                userId)
             groups = cursor.fetchall()
             return groups
         except Exception as e:
@@ -290,14 +292,14 @@ class GroupDAO:
             conn.close()
 
     @classmethod
-    def searchForMember(cls, data):
+    def searchForMember(cls, data, user_id):
         try:
             conn = mysql.connect()
             cursor = conn.cursor(pymysql.cursors.DictCursor)
 
             cursor.execute(
-                "  SELECT * FROM users u WHERE MATCH (u.user_name,u.email, u.full_name) AGAINST (%s IN BOOLEAN MODE) ORDER BY u.full_name",
-                data.get('search_text'))
+                "SELECT * FROM users u WHERE MATCH (u.user_name,u.email, u.full_name) AGAINST (%s IN BOOLEAN MODE) AND u.id!=%s AND u.id!=%s ORDER BY u.full_name",
+                (data.get('search_text'), user_id, data.get('created_by')))
             users = cursor.fetchall()
             return users
         except Exception as e:
@@ -316,9 +318,13 @@ class GroupDAO:
             conn = mysql.connect()
             cursor = conn.cursor(pymysql.cursors.DictCursor)
 
-            cursor.execute("SELECT * FROM group_invites gi WHERE gi.group_id =%s AND gi.invited_to_id =%s",(group_id, member_id))
+            cursor.execute("SELECT * FROM group_invites gi WHERE gi.group_id =%s AND gi.invited_to_id =%s",
+                           (group_id, member_id))
             invite = cursor.fetchone()
-            if invite is not None:
+            cursor.execute("SELECT * FROM group_members gm WHERE gm.group_id = %s AND  gm.member_id= %s",
+                           (group_id, member_id))
+            invite1 = cursor.fetchone()
+            if invite is not None or invite1 is not None:
                 raise InvitationAlreadySent
 
         except Exception as e:

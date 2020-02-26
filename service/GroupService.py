@@ -98,7 +98,8 @@ class GroupService:
     def searchForMember(cls, headers, data):
         try:
             user = cls.userService.checkIfUserLoggedIn(headers.get("session_id"))
-            users = cls.groupDAO.searchForMember(data)
+
+            users = cls.groupDAO.searchForMember(data, user.get('id'))
 
             return users
 
