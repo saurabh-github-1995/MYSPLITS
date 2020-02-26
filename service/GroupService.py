@@ -22,6 +22,7 @@ class GroupService:
         try:
             currentUser = cls.userService.checkIfUserLoggedIn(headers.get("session_id"))
             if currentUser is not None:
+                cls.checkIfMemberAlreadyInvitedForGroup(data.get('group_id'), data.get("user_id"))
                 group = cls.getGroupDetailsByGroupId(data.get('group_id'))
                 toInviteUser = cls.userService.getUserDetailsByUserId(data.get("user_id"))
                 responseData = cls.groupDAO.inviteMemberToGroup(data, currentUser, group, toInviteUser)
@@ -89,6 +90,28 @@ class GroupService:
             expenses = cls.groupDAO.getGroupExpensesList(data)
 
             return expenses
+
+        except Exception as e:
+            raise e.__class__
+
+    @classmethod
+    def searchForMember(cls, headers, data):
+        try:
+            user = cls.userService.checkIfUserLoggedIn(headers.get("session_id"))
+            users = cls.groupDAO.searchForMember(data)
+
+            return users
+
+        except Exception as e:
+            raise e.__class__
+
+    @classmethod
+    def checkIfMemberAlreadyInvitedForGroup(cls, group_id, member_id):
+        try:
+
+            invite = cls.groupDAO.checkIfMemberAlreadyInvitedForGroup(group_id, member_id)
+
+            return invite
 
         except Exception as e:
             raise e.__class__

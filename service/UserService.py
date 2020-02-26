@@ -35,9 +35,12 @@ class UserService:
     @classmethod
     def getAllUsersExceptSelf(cls, session_id):
         currentUser = cls.checkIfUserLoggedIn(session_id)
-        if currentUser is not None:
-            cls.userDAO.getAllUsersExceptSelf(currentUser.get())
-        pass
+
+        try:
+            responseData = cls.userDAO.getAllUsersExceptSelf(currentUser.get('id'))
+            return responseData
+        except Exception as e:
+            raise e.__class__
 
     @classmethod
     def getUserDetailsByUserId(cls, user_id):

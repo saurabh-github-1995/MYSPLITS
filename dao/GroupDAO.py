@@ -6,6 +6,7 @@ from CustomUtils import *
 from Exceptions.EmailCannotBeNull import EmailCannotBeNull
 from Exceptions.EmailExists import EmailExists
 from Exceptions.GroupDoesNotExists import GroupDoesNotExists
+from Exceptions.InvitationAlreadySent import InvitationAlreadySent
 from Exceptions.InviteDoesNotExists import InviteDoesNotExists
 from Exceptions.UserNameCannotBeNull import UserNameCannotBeNull
 from Exceptions.UserNameExists import UserNameExists
@@ -278,6 +279,48 @@ class GroupDAO:
                 data.get('group_id'))
             expenses = cursor.fetchall()
             return expenses
+        except Exception as e:
+            print(e)
+            if str(e) != "":
+                return cls.customUtils.findSpecificError(str(e))
+            else:
+                raise e.__class__
+        finally:
+            cursor.close()
+            conn.close()
+
+    @classmethod
+    def searchForMember(cls, data):
+        try:
+            conn = mysql.connect()
+            cursor = conn.cursor(pymysql.cursors.DictCursor)
+
+            cursor.execute(
+                "  SELECT * FROM users u WHERE MATCH (u.user_name,u.email, u.full_name) AGAINST (%s IN BOOLEAN MODE) ORDER BY u.full_name",
+                data.get('search_text'))
+            users = cursor.fetchall()
+            return users
+        except Exception as e:
+            print(e)
+            if str(e) != "":
+                return cls.customUtils.findSpecificError(str(e))
+            else:
+                raise e.__class__
+        finally:
+            cursor.close()
+            conn.close()
+
+    @classmethod
+    def checkIfMemberAlreadyInvitedForGroup(cls, group_id, member_id):
+        try:
+            conn = mysql.connect()
+            cursor = conn.cursor(pymysql.cursors.DictCursor)
+
+            cursor.execute("SELECT * FROM group_invites gi WHERE gi.group_id =%s AND gi.invited_to_id =%s",(group_id, member_id))
+            invite = cursor.fetchone()
+            if invite is not None:
+                raise InvitationAlreadySent
+
         except Exception as e:
             print(e)
             if str(e) != "":

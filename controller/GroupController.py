@@ -153,12 +153,36 @@ def getGroupExpensesList():
     wsResponse = {"resultSet": None, "operationStatus": None}
 
     try:
-        responseDate = groupService.getGroupExpensesList(request.headers,request.data)
+        responseDate = groupService.getGroupExpensesList(request.headers, request.json)
 
         wsResponse['resultSet'] = responseDate
         wsResponse['operationStatus'] = CustomUtils.SUCCESSFULL
 
     except Exception as e:
+        print("ERROR---------------------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
+        print(e)
+        if e.__class__ != "EXCEPTION":
+            wsResponse['resultSet'] = None
+            wsResponse['operationStatus'] = e.STATUS_CODE
+        else:
+            wsResponse['resultSet'] = None
+            wsResponse['operationStatus'] = CustomUtils.SOMETHING_WENT_WRONG
+    return wsResponse
+
+
+@app.route('/searchForMember', methods=['POST'])
+def searchForMember():
+    wsResponse = {"resultSet": None, "operationStatus": None}
+
+    try:
+        responseDate = groupService.searchForMember(request.headers, request.json)
+
+        wsResponse['resultSet'] = responseDate
+        wsResponse['operationStatus'] = CustomUtils.SUCCESSFULL
+
+    except Exception as e:
+        print("ERROR---------------------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
+        print(e)
         if e.__class__ != "EXCEPTION":
             wsResponse['resultSet'] = None
             wsResponse['operationStatus'] = e.STATUS_CODE

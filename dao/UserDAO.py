@@ -112,3 +112,23 @@ class UserDAO:
         finally:
             cursor.close()
             conn.close()
+
+    @classmethod
+    def getAllUsersExceptSelf(cls, userid):
+        try:
+            conn = mysql.connect()
+            cursor = conn.cursor(pymysql.cursors.DictCursor)
+            cursor.execute("SELECT * FROM users u WHERE u.id != %s ORDER BY u.full_name",
+                           userid)
+            users = cursor.fetchall()
+            return users
+
+        except Exception as e:
+            print(e)
+            if str(e) != "":
+                return cls.customUtils.findSpecificError(str(e))
+            else:
+                raise e.__class__
+        finally:
+            cursor.close()
+            conn.close()

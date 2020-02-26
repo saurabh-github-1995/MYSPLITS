@@ -24,6 +24,7 @@ class CustomUtils:
     AMOUNT_CANNOT_BE_NULL = -12
     PAID_FOR_CANNOT_BE_NULL = -13
     PASSWORD_CANNOT_BE_NULL = -14
+    INVITATION_ALREADY_SENT = -15
 
     @classmethod
     def findSpecificError(cls, errorString):
