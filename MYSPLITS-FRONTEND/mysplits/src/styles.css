@@ -220,8 +220,14 @@ box-shadow: 1px 0px 31px -7px rgba(217,217,217,1);
 .expense-list-header-items{
   width: 20%;
 }
+.expense-list-header-items-25{
+  width: 25%;
+}
 .expenses-list-items{
   width: 20%;
+}
+.expenses-list-items-25{
+  width: 25%;
 }
 .expenses-list-data{
   display: flex;
@@ -275,4 +281,8 @@ box-shadow: 1px 0px 31px -7px rgba(217,217,217,1);
     margin: 0;
     padding-left: 11px;
     color: #8686f7;
+}
+.green-badge{
+  background: #4fe84f;
+    padding: 5px;
 }

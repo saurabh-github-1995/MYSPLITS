@@ -25,4 +25,6 @@ export class ServerEndPointsService {
   GETALLUSERSEXCEPTSELF="getAllUsersExceptSelf";
   SEARCHFORMEMBER = "searchForMember";
   INVITEMEMBERTOGROUP = "inviteMemberToGroup";
+  GETINVITESOFUSER = "getInvitesOfUser";
+  ACCEPTINVITE= "acceptInvite";
 }

@@ -18,4 +18,8 @@ export class DASHBOARDComponent implements OnInit {
   navigateToGroups(){
     this.router.navigate(['/dashboard/groups']);
   }
+
+  navigateToInvites(){
+    this.router.navigate(['/dashboard/invites']);
+  }
 }

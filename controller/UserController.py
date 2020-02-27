@@ -106,3 +106,23 @@ def getUserDetailsByUserId():
             wsResponse['resultSet'] = None
             wsResponse['operationStatus'] = CustomUtils.SOMETHING_WENT_WRONG
     return wsResponse
+
+@classmethod
+@app.route('/getInvitesOfUser', methods=['POST'])
+def getInvitesOfUser():
+    wsResponse = {"resultSet": None, "operationStatus": None}
+
+    try:
+        responseDate = userService.getInvitesOfUser(request.headers)
+
+        wsResponse['resultSet'] = responseDate
+        wsResponse['operationStatus'] = CustomUtils.SUCCESSFULL
+
+    except Exception as e:
+        if e.__class__ != "EXCEPTION":
+            wsResponse['resultSet'] = None
+            wsResponse['operationStatus'] = e.STATUS_CODE
+        else:
+            wsResponse['resultSet'] = None
+            wsResponse['operationStatus'] = CustomUtils.SOMETHING_WENT_WRONG
+    return wsResponse

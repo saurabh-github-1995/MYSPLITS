@@ -11,6 +11,7 @@ import { DASHBOARDComponent } from './dashboard/dashboard.component';
 import { AppgroupsComponent } from './dashboard/appgroups/appgroups.component';
 import { GroupdetailsComponent } from './dashboard/groupdetails/groupdetails.component';
 import * as $ from 'jquery';
+import { InvitesComponent } from './dashboard/invites/invites.component';
 
 
 //declare var $: any;
@@ -22,7 +23,8 @@ console.log(`jQuery version: ${$.fn.jquery}`);
     SignupComponent,
     DASHBOARDComponent,
     AppgroupsComponent,
-    GroupdetailsComponent
+    GroupdetailsComponent,
+    InvitesComponent
   ],
   imports: [
     BrowserModule,

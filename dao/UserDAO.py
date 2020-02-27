@@ -132,3 +132,23 @@ class UserDAO:
         finally:
             cursor.close()
             conn.close()
+
+    @classmethod
+    def getInvitesOfUser(cls, userid):
+        try:
+            conn = mysql.connect()
+            cursor = conn.cursor(pymysql.cursors.DictCursor)
+            cursor.execute("SELECT * FROM group_invites gi WHERE gi.invited_to_id = %s ORDER BY gi.invited_on ASC",
+                           userid)
+            invites = cursor.fetchall()
+            return invites
+
+        except Exception as e:
+            print(e)
+            if str(e) != "":
+                return cls.customUtils.findSpecificError(str(e))
+            else:
+                raise e.__class__
+        finally:
+            cursor.close()
+            conn.close()

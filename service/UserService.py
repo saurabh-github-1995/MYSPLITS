@@ -46,3 +46,13 @@ class UserService:
     def getUserDetailsByUserId(cls, user_id):
         user = cls.userDAO.getUserDetailsByUserId(user_id)
         return user
+
+    @classmethod
+    def getInvitesOfUser(cls, headers):
+        currentUser = cls.checkIfUserLoggedIn(headers.get('session_id'))
+
+        try:
+            responseData = cls.userDAO.getInvitesOfUser(currentUser.get('id'))
+            return responseData
+        except Exception as e:
+            raise e.__class__

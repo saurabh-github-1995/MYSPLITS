@@ -1,0 +1,45 @@
+<div class="page-header">
+  <h5>All Invites</h5>
+</div>
+
+<div class="expenses-container">
+
+
+
+
+  <div class="expense-list-header">
+    <div class="expense-list-header-items-25">
+      <p class="p-margin-0 ">Invited By</p>
+    </div>
+    <div class="expense-list-header-items-25">
+      <p class="p-margin-0 ">Group Name</p>
+    </div>
+    <div class="expense-list-header-items-25">
+      <p class="p-margin-0 ">Invite Date</p>
+    </div>
+
+    <div class="expense-list-header-items-25">
+      <p class="p-margin-0 ">Actions</p>
+    </div>
+  </div>
+  <div *ngFor="let ev of invites" class="expenses-list">
+    <div class="expenses-list-data">
+      <div class="expenses-list-items-25">
+        <p class="p-margin-0 ">{{ev.invited_by_name}}</p>
+      </div>
+      <div class="expenses-list-items-25">
+        <p class="p-margin-0 ">{{ev.group_name}}</p>
+      </div>
+      <div class="expenses-list-items-25">
+        <p class="p-margin-0 ">{{ev.invited_on | date: 'dd/MM/yyyy'}}</p>
+      </div>
+      <div class="expenses-list-items-25">
+        <p class="p-margin-0 ">
+          <span class="green-badge" *ngIf="ev.invitation_status=='ACCEPTED'">{{ev.invitation_status}}</span>
+          <a class="waves-effect waves-light btn blue lighten-3" *ngIf="ev.invitation_status!='ACCEPTED'" (click)="acceptInvite(ev.id)"><i class="material-icons right">check</i>ACCEPT</a>
+        </p>
+      </div>
+    </div>
+
+  </div>
+</div>
