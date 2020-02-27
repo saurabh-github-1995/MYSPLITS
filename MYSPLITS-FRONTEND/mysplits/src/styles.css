@@ -301,3 +301,10 @@ box-shadow: 1px 0px 31px -7px rgba(217,217,217,1);
 .dropdown-list-container p:hover{
   background-color:#f5f4f3;
 }
+.custom-select{
+  display: block;
+}
+.custom-select-label{
+  position: relative !important;
+    margin-left: -10px;
+}

@@ -1,16 +1,16 @@
 <div class="dashboard-sidebar-main-content-flex">
   <div class="dashboard-sidebar">
     <h3 class="logo">MY SPLITS</h3>
-    <div class="sidepanel-navigation">
+    <div class="sidepanel-navigation" (click)="navigateToDashboard()" id="dashboard">
       <i class="fa fa-tachometer sidebar-navigation-icon" aria-hidden="true"></i>
       <p> DASHBOARD</p>
     </div>
-    <div class="sidepanel-navigation"  (click)="navigateToGroups()">
+    <div class="sidepanel-navigation"  (click)="navigateToGroups()" id="group">
       <i class="material-icons sidebar-navigation-icon">group</i>
       <p> GROUPS</p>
     </div>
-    <div class="sidepanel-navigation"  (click)="navigateToInvites()">
-      <i class="material-icons sidebar-navigation-icon">group</i>
+    <div class="sidepanel-navigation"  (click)="navigateToInvites()" id="invite">
+      <i class="material-icons sidebar-navigation-icon">markunread</i>
       <p> INVITES</p>
     </div>
 

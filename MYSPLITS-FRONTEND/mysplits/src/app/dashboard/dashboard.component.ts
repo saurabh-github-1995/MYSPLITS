@@ -13,13 +13,28 @@ export class DASHBOARDComponent implements OnInit {
     public router:Router) { }
 
   ngOnInit() {
+    this.showSelectedTab("dashboard");
   }
 
   navigateToGroups(){
+
     this.router.navigate(['/dashboard/groups']);
   }
 
   navigateToInvites(){
     this.router.navigate(['/dashboard/invites']);
+  }
+  navigateToDashboard(){
+    this.showSelectedTab("dashboard");
+    this.router.navigate(['/dashboard']);
+  }
+
+  currentSelected;
+  showSelectedTab(tabId){
+    $("#"+this.currentSelected).css("background-color","transparent");
+    this.currentSelected = tabId;
+
+    $("#"+tabId).css("background-color","#a4a9ab");
+
   }
 }

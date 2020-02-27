@@ -1,3 +1,4 @@
+import { DASHBOARDComponent } from './../dashboard.component';
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
@@ -22,10 +23,12 @@ export class InvitesComponent implements OnInit {
     public httpClient: HttpClient,
     public serverEndpoints: ServerEndPointsService,
     public datasourceService: DatasourceService,
-    public appComponent: AppComponent) { }
+    public appComponent: AppComponent,
+    public dASHBOARDComponent:DASHBOARDComponent) { }
 
   ngOnInit() {
     this.getAllInvitesOfUsers();
+    this.dASHBOARDComponent.showSelectedTab("invite");
   }
   getAllInvitesOfUsers() {
     this.appComponent.showLoader();

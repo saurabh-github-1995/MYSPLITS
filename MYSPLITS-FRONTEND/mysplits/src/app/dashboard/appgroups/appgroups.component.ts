@@ -1,3 +1,4 @@
+import { DASHBOARDComponent } from './../dashboard.component';
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ServerEndPointsService } from 'src/app/services/SERVERENDPOINTS/server-end-points.service';
@@ -23,12 +24,14 @@ export class AppgroupsComponent implements OnInit {
     public serverEndpoints: ServerEndPointsService,
     public datasourceService: DatasourceService,
     public appComponent: AppComponent,
-    public router: Router) { }
+    public router: Router,
+    public dASHBOARDComponent:DASHBOARDComponent) { }
 
   ngOnInit() {
+    this.dASHBOARDComponent.showSelectedTab("group");
     this.getMembersGroups();
     this.getListOfCurrencies();
-    $('select').formSelect();
+
   }
   groups;
 

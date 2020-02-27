@@ -1,3 +1,4 @@
+
 <div class="page-header">
   <h5>All Groups</h5>
 </div>
@@ -21,14 +22,15 @@
           <label for="last_name">Description*</label>
         </div>
         <div class="input-field col s12">
-          <select [(ngModel)]="type">
+          <label class="custom-select-label">Type</label>
+          <select [(ngModel)]="type" class="custom-select">
 
-            <option value="1">APARTMENT</option>
-            <option value="2">HOUSE</option>
-            <option value="3">TRIP</option>
-            <option value="3">OTHER</option>
+            <option value="APARTMENT">APARTMENT</option>
+            <option value="HOUSE">HOUSE</option>
+            <option value="TRIP">TRIP</option>
+            <option value="OTHER">OTHER</option>
           </select>
-          <label>Type</label>
+
         </div>
         <div class="input-field col s12">
 
