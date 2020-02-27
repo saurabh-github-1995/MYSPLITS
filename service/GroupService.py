@@ -116,3 +116,13 @@ class GroupService:
 
         except Exception as e:
             raise e.__class__
+
+    @classmethod
+    def getListOfCurrencies(cls):
+        try:
+
+            currencies = cls.groupDAO.getListOfCurrencies()
+            return currencies
+
+        except Exception as e:
+            raise e.__class__

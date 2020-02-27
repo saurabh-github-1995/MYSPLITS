@@ -1,7 +1,56 @@
 <div class="page-header">
   <h5>All Groups</h5>
 </div>
+<div class="">
 
+  <button class="btn waves-effect waves-light lime add-buttons" type="submit" name="action"
+    (click)="showAddGroupForm()">Create Group
+    <i class="fa fa-user-plus" aria-hidden="true"></i>
+  </button>
+</div>
+<div class="add-expense-form-div" id="addExpenseForm" >
+  <div class="row">
+    <div class="col s12">
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="first_name" type="text" class="validate" [(ngModel)]="name">
+          <label for="first_name">Name*</label>
+        </div>
+        <div class="input-field col s12">
+          <input id="last_name" type="text" class="validate" [(ngModel)]="description">
+          <label for="last_name">Description*</label>
+        </div>
+        <div class="input-field col s12">
+          <select [(ngModel)]="type">
+
+            <option value="1">APARTMENT</option>
+            <option value="2">HOUSE</option>
+            <option value="3">TRIP</option>
+            <option value="3">OTHER</option>
+          </select>
+          <label>Type</label>
+        </div>
+        <div class="input-field col s12">
+
+          <input type="text" class="validate" [(ngModel)]="currency" readonly placeholder="Currency*" (click)="showCurrencyList()">
+
+          <div class="dropdown-list-container" id="currencyList">
+            <p *ngFor="let c of currencies" (click)="setCurrencyValue(c)">{{c.country}} , {{c.currency}} , {{c.symbol}}</p>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="row" style="text-align: center;">
+        <p style="    color: red;">{{this.local_error_message}}</p>
+        <button class="btn waves-effect waves-light  red accent-3" type="submit" name="action" (click)="createGroup()">Create
+          <i class="material-icons right">keyboard_arrow_right</i>
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
 <div class="group-list-flex-container">
   <div *ngFor="let g of groups" class="group-list-flex-items" (click)="navigateToGroupDetials(g.group_id)">
     <div class="avatar-and-name-flex-container">

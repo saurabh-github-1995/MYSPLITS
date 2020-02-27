@@ -286,3 +286,18 @@ box-shadow: 1px 0px 31px -7px rgba(217,217,217,1);
   background: #4fe84f;
     padding: 5px;
 }
+.dropdown-list-container{
+  height: 220px;
+    overflow-y: scroll;
+    display: none;
+}
+.dropdown-list-container p{
+  border-bottom: 1px solid #e2dbdb;
+  margin: 0px;
+  padding: 5px;
+  cursor: pointer;
+
+}
+.dropdown-list-container p:hover{
+  background-color:#f5f4f3;
+}

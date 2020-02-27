@@ -190,3 +190,25 @@ def searchForMember():
             wsResponse['resultSet'] = None
             wsResponse['operationStatus'] = CustomUtils.SOMETHING_WENT_WRONG
     return wsResponse
+
+
+@app.route('/getListOfCurrencies', methods=['POST'])
+def getListOfCurrencies():
+    wsResponse = {"resultSet": None, "operationStatus": None}
+
+    try:
+        responseDate = groupService.getListOfCurrencies()
+
+        wsResponse['resultSet'] = responseDate
+        wsResponse['operationStatus'] = CustomUtils.SUCCESSFULL
+
+    except Exception as e:
+        print("ERROR---------------------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
+        print(e)
+        if e.__class__ != "EXCEPTION":
+            wsResponse['resultSet'] = None
+            wsResponse['operationStatus'] = e.STATUS_CODE
+        else:
+            wsResponse['resultSet'] = None
+            wsResponse['operationStatus'] = CustomUtils.SOMETHING_WENT_WRONG
+    return wsResponse

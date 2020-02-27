@@ -27,4 +27,6 @@ export class ServerEndPointsService {
   INVITEMEMBERTOGROUP = "inviteMemberToGroup";
   GETINVITESOFUSER = "getInvitesOfUser";
   ACCEPTINVITE= "acceptInvite";
+  GETLISTOFCURRENCIES = "getListOfCurrencies";
+  CREATEGROUP = "createGroup";
 }

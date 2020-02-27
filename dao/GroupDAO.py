@@ -336,3 +336,25 @@ class GroupDAO:
         finally:
             cursor.close()
             conn.close()
+
+    @classmethod
+    def getListOfCurrencies(cls):
+        try:
+            conn = mysql.connect()
+            cursor = conn.cursor(pymysql.cursors.DictCursor)
+
+            cursor.execute("SELECT * FROM currency")
+            currencies = cursor.fetchall()
+
+            return currencies
+
+        except Exception as e:
+            print("*********************")
+            print(e)
+            if str(e) != "":
+                return cls.customUtils.findSpecificError(str(e))
+            else:
+                raise e.__class__
+        finally:
+            cursor.close()
+            conn.close()
