@@ -202,7 +202,7 @@ export class GroupdetailsComponent implements OnInit {
     this.httpClient.post(this.serverEndpoints.SERVERURL + this.serverEndpoints.INVITEMEMBERTOGROUP, data, { headers: header }).subscribe((response: any) => {
       this.appComponent.hideLoader();
       if (response.operationStatus == this.serverEndpoints.OPERATION_SUCESSESULL) {
-        alert("SUCCESS")
+        $("#searchUser").hide('slow');
 
 
       } else {
@@ -221,6 +221,8 @@ export class GroupdetailsComponent implements OnInit {
     });
 
   }
-
+  showSendInviteForm(){
+    $("#searchUser").toggle('slow');
+  }
 //inviteMemberToGroup
 }
