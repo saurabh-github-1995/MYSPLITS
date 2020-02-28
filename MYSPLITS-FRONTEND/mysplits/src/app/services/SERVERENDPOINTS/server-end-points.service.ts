@@ -29,4 +29,5 @@ export class ServerEndPointsService {
   ACCEPTINVITE= "acceptInvite";
   GETLISTOFCURRENCIES = "getListOfCurrencies";
   CREATEGROUP = "createGroup";
+  CHECKIFUSERLOGGEDIN = "checkIfUserLoggedIn";
 }

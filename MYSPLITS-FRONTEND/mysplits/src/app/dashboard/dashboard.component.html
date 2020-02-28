@@ -5,19 +5,31 @@
       <i class="fa fa-tachometer sidebar-navigation-icon" aria-hidden="true"></i>
       <p> DASHBOARD</p>
     </div>
-    <div class="sidepanel-navigation"  (click)="navigateToGroups()" id="group">
+    <div class="sidepanel-navigation" (click)="navigateToGroups()" id="group">
       <i class="material-icons sidebar-navigation-icon">group</i>
       <p> GROUPS</p>
     </div>
-    <div class="sidepanel-navigation"  (click)="navigateToInvites()" id="invite">
+    <div class="sidepanel-navigation" (click)="navigateToInvites()" id="invite">
       <i class="material-icons sidebar-navigation-icon">markunread</i>
       <p> INVITES</p>
     </div>
 
   </div>
   <div class="top-navbar">
-    <div>
-      <p>Dashboard</p>
+    <div class="topnavbar-flex-container">
+      <div>
+        <p class="p-margin-0">Dashboard</p>
+      </div>
+      <div class="right-side-setting-logout-flex">
+        <i class="fa fa-user right-side-icons-fonts" aria-hidden="true" style="padding-right: 5px;"></i>
+        <p class="p-margin-0 right-side-items">{{loggedInUserName}}</p>
+        <i class="fa fa-sign-out right-side-icons-fonts" aria-hidden="true" style="padding-right: 5px;" (click)="navigateToLogin()"></i>
+        <p class="p-margin-0"  (click)="navigateToLogin()" style="cursor: pointer;">Log Out</p>
+        <!-- <p class="p-margin-0 right-side-items"><i class="fa fa-cog right-side-icons-fonts" aria-hidden="true" ></i></p> -->
+
+      </div>
+
+
     </div>
   </div>
   <div class="dashboard-content">

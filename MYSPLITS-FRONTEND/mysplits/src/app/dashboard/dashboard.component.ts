@@ -8,12 +8,13 @@ import { Router, RouterModule } from '@angular/router';
   styleUrls: ['./dashboard.component.css']
 })
 export class DASHBOARDComponent implements OnInit {
-
+  loggedInUserName;
   constructor(
     public router:Router) { }
 
   ngOnInit() {
     this.showSelectedTab("dashboard");
+    this.loggedInUserName = localStorage.getItem("LOGGED_IN_USER_NAME");
   }
 
   navigateToGroups(){
@@ -36,5 +37,9 @@ export class DASHBOARDComponent implements OnInit {
 
     $("#"+tabId).css("background-color","#a4a9ab");
 
+  }
+  navigateToLogin(){
+    localStorage.clear();
+    this.router.navigate(['/login']);
   }
 }
