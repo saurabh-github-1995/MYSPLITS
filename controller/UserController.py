@@ -167,3 +167,24 @@ def getUsersSpendingInTotal():
             wsResponse['resultSet'] = None
             wsResponse['operationStatus'] = CustomUtils.SOMETHING_WENT_WRONG
     return wsResponse
+
+
+@classmethod
+@app.route('/getUsersShareInGroup', methods=['POST'])
+def getUsersShareInGroup():
+    wsResponse = {"resultSet": None, "operationStatus": None}
+
+    try:
+        responseDate = userService.getUsersShareInGroup(request.headers,request.json)
+
+        wsResponse['resultSet'] = responseDate
+        wsResponse['operationStatus'] = CustomUtils.SUCCESSFULL
+
+    except Exception as e:
+        if e.__class__ != "EXCEPTION":
+            wsResponse['resultSet'] = None
+            wsResponse['operationStatus'] = e.STATUS_CODE
+        else:
+            wsResponse['resultSet'] = None
+            wsResponse['operationStatus'] = CustomUtils.SOMETHING_WENT_WRONG
+    return wsResponse

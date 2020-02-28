@@ -76,3 +76,13 @@ class UserService:
             return responseData
         except Exception as e:
             raise e.__class__
+
+    @classmethod
+    def getUsersShareInGroup(cls, headers,data):
+        currentUser = cls.checkIfUserLoggedIn(headers.get('session_id'))
+
+        try:
+            responseData = cls.userDAO.getUsersShareInGroup(data)
+            return responseData
+        except Exception as e:
+            raise e.__class__

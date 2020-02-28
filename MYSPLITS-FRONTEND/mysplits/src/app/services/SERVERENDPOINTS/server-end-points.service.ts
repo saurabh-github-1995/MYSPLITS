@@ -32,4 +32,5 @@ export class ServerEndPointsService {
   CHECKIFUSERLOGGEDIN = "checkIfUserLoggedIn";
   GETUSERSHARES = "getUserShares";
   GETUSERSSPENDINGINTOTAL = "getUsersSpendingInTotal";
+  GETUSERSSHAREINGROUP = "getUsersShareInGroup";
 }

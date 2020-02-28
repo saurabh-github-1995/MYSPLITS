@@ -198,3 +198,24 @@ class UserDAO:
         finally:
             cursor.close()
             conn.close()
+
+    @classmethod
+    def getUsersShareInGroup(cls, data):
+        try:
+            conn = mysql.connect()
+            cursor = conn.cursor(pymysql.cursors.DictCursor)
+            cursor.execute("SELECT * , SUM(e.amount) AS total FROM expenses e  WHERE e.group_id = %s GROUP BY e.paid_by_id",
+                           data.get('group_id'))
+            shares = cursor.fetchall()
+
+            return shares
+
+        except Exception as e:
+            print(e)
+            if str(e) != "":
+                return cls.customUtils.findSpecificError(str(e))
+            else:
+                raise e.__class__
+        finally:
+            cursor.close()
+            conn.close()

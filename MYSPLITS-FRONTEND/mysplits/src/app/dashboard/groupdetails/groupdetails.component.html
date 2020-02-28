@@ -1,5 +1,14 @@
 <p class="group-header">{{groups.name}}</p>
 
+<div id="chartContainer" style="height: 370px; width: 100%;" class="graph-div"></div>
+<div class="mapDropDownContainer">
+  <select [(ngModel)]="graphType" (change)="getUsersShareInGroup(graphType)">
+    <option value="column">COLUMN</option>
+    <option value="pie">PIE</option>
+    <option value="line">LINE</option>
+    <option value="spline">SPLINE</option>
+  </select>
+</div>
 
 <div class="expenses-container">
 
