@@ -152,3 +152,49 @@ class UserDAO:
         finally:
             cursor.close()
             conn.close()
+
+    @classmethod
+    def getUserShares(cls, userid):
+        try:
+            conn = mysql.connect()
+            cursor = conn.cursor(pymysql.cursors.DictCursor)
+            cursor.execute("SELECT * FROM expenses_splits es WHERE es.owes_member_id = %s AND es.amount > 0",
+                           userid)
+            owes = cursor.fetchall()
+
+            cursor.execute("SELECT * FROM expenses_splits es WHERE es.owes_to_member_id = %s AND es.amount > 0",
+                           userid)
+            owesFrom = cursor.fetchall()
+            shares = {"owes": owes, "owesFrom": owesFrom}
+            return shares
+
+        except Exception as e:
+            print(e)
+            if str(e) != "":
+                return cls.customUtils.findSpecificError(str(e))
+            else:
+                raise e.__class__
+        finally:
+            cursor.close()
+            conn.close()
+
+    @classmethod
+    def getUsersSpendingInTotal(cls, userid):
+        try:
+            conn = mysql.connect()
+            cursor = conn.cursor(pymysql.cursors.DictCursor)
+            cursor.execute("SELECT *  FROM expenses e  WHERE e.paid_by_id = %s",
+                           userid)
+            expenses = cursor.fetchall()
+
+            return expenses
+
+        except Exception as e:
+            print(e)
+            if str(e) != "":
+                return cls.customUtils.findSpecificError(str(e))
+            else:
+                raise e.__class__
+        finally:
+            cursor.close()
+            conn.close()

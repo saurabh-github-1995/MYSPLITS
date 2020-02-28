@@ -129,7 +129,7 @@ export class AppComponent {
     this.httpClient.post(this.serverEndpoints.SERVERURL + this.serverEndpoints.CHECKIFUSERLOGGEDIN, null, { headers: header }).subscribe((response: any) => {
       this.hideLoader();
       if (response.operationStatus == this.serverEndpoints.OPERATION_SUCESSESULL) {
-        this.router.navigate(['/dashboard']);
+        //this.router.navigate(['/dashboard']);
 
       } else {
         //alert("SPMETHING WENT WRONG");

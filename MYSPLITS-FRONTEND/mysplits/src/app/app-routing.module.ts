@@ -1,3 +1,4 @@
+import { HomepageComponent } from './dashboard/homepage/homepage.component';
 import { InvitesComponent } from './dashboard/invites/invites.component';
 import { GroupdetailsComponent } from './dashboard/groupdetails/groupdetails.component';
 import { AppgroupsComponent } from './dashboard/appgroups/appgroups.component';
@@ -23,6 +24,9 @@ const routes: Routes = [
       },{
         path: 'invites',
         component: InvitesComponent
+      },{
+        path: 'home',
+        component: HomepageComponent
       }]
   }];
 

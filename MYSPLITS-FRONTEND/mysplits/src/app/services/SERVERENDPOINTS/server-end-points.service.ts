@@ -30,4 +30,6 @@ export class ServerEndPointsService {
   GETLISTOFCURRENCIES = "getListOfCurrencies";
   CREATEGROUP = "createGroup";
   CHECKIFUSERLOGGEDIN = "checkIfUserLoggedIn";
+  GETUSERSHARES = "getUserShares";
+  GETUSERSSPENDINGINTOTAL = "getUsersSpendingInTotal";
 }

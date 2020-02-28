@@ -1,0 +1,45 @@
+<!-- <div class="chart-wrapper graph-div">
+  <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
+    [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartType">
+  </canvas>
+</div> -->
+
+
+<div id="chartContainer" style="height: 370px; width: 100%;" class="graph-div"></div>
+<div class="mapDropDownContainer">
+  <select [(ngModel)]="graphType" (change)="getUsersSpendingInTotal(graphType)">
+    <option value="column">COLUMN</option>
+    <option value="pie">PIE</option>
+    <option value="line">LINE</option>
+    <option value="spline">SPLINE</option>
+  </select>
+</div>
+<div class="shares-flex-container">
+  <div class="shares-flex-items-container" style="border-right: 1px solid #bfbebe;">
+    <div>
+      <h6 class="shares-flex-items-header">YOU ARE OWED</h6>
+    </div>
+    <div>
+      <div *ngFor="let sh of shares.owesFrom" class="owes-to-flex-container">
+        <p class="name-highlight" id="{{sh.id}}">{{sh.owes_member_name.slice(0, 1)}}</p>
+        <p>{{sh.owes_member_name}} <br> EURO {{sh.amount}} - {{sh.group_name}}</p>
+        <p>{{getRandomColorShade(sh.id)}}</p>
+      </div>
+    </div>
+  </div>
+  <div class="shares-flex-items-container">
+    <div>
+      <h6 class="shares-flex-items-header">YOU OWE</h6>
+    </div>
+    <div>
+      <div *ngFor="let sh of shares.owes" class="owes-to-flex-container">
+        <p class="name-highlight" id="{{sh.id}}">{{sh.owes_to_member_name.slice(0, 1)}}</p>
+        <p>{{sh.owes_to_member_name}} <br> EURO {{sh.amount}} - {{sh.group_name}}</p>
+        <p>{{getRandomColorShade(sh.id)}}</p>
+      </div>
+    </div>
+  </div>
+</div>
+<button (click)="change()">CHANGE</button>
+
+

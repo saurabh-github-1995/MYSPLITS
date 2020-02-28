@@ -56,3 +56,23 @@ class UserService:
             return responseData
         except Exception as e:
             raise e.__class__
+
+    @classmethod
+    def getUserShares(cls, headers):
+        currentUser = cls.checkIfUserLoggedIn(headers.get('session_id'))
+
+        try:
+            responseData = cls.userDAO.getUserShares(currentUser.get('id'))
+            return responseData
+        except Exception as e:
+            raise e.__class__
+
+    @classmethod
+    def getUsersSpendingInTotal(cls, headers):
+        currentUser = cls.checkIfUserLoggedIn(headers.get('session_id'))
+
+        try:
+            responseData = cls.userDAO.getUsersSpendingInTotal(currentUser.get('id'))
+            return responseData
+        except Exception as e:
+            raise e.__class__

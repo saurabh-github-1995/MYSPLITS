@@ -12,6 +12,10 @@ import { AppgroupsComponent } from './dashboard/appgroups/appgroups.component';
 import { GroupdetailsComponent } from './dashboard/groupdetails/groupdetails.component';
 import * as $ from 'jquery';
 import { InvitesComponent } from './dashboard/invites/invites.component';
+import { HomepageComponent } from './dashboard/homepage/homepage.component';
+import { ChartsModule } from 'ng2-charts';
+
+
 
 
 //declare var $: any;
@@ -24,13 +28,15 @@ console.log(`jQuery version: ${$.fn.jquery}`);
     DASHBOARDComponent,
     AppgroupsComponent,
     GroupdetailsComponent,
-    InvitesComponent
+    InvitesComponent,
+    HomepageComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

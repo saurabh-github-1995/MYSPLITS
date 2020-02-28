@@ -332,3 +332,59 @@ box-shadow: 1px 0px 31px -7px rgba(217,217,217,1);
 .right-side-items{
   padding: 0px 19px 0px 0px;;
 }
+.shares-flex-container{
+  display: flex;
+  width: 600px;
+  margin: auto;
+
+  margin-top: 90px;
+}
+.shares-flex-items-container{
+  width: 50%;
+}
+.shares-flex-items-header{
+  font-weight: bold;
+  text-align: center;
+  color: #a4a9ab;
+  border-bottom: 1px solid #bfbebe;
+  padding: 0px 0px 10px 0px;
+}
+.name-highlight{
+  width: 40px;
+  height: 40px;
+  background: #bae477;
+  color: white;
+  display: inline-block;
+  text-align: center;
+  font-weight: bold;
+  border-radius: 60px;
+  margin-right: 9px;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  padding: 15px;
+}
+.owes-to-flex-container{
+  display: flex;
+
+    padding: 5px;
+}
+.graph-div{
+  max-width: 800px;
+  margin: auto;
+}
+select{
+  display: block;
+}
+.mapDropDownContainer{
+  width: 100%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.mapDropDownContainer select{
+  width: 150px;
+  border: 1px solid #c7bcbc;
+}

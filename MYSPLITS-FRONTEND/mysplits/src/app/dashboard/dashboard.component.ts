@@ -1,6 +1,11 @@
+import { AppComponent } from './../app.component';
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 
+import { ActivatedRoute } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { ServerEndPointsService } from 'src/app/services/SERVERENDPOINTS/server-end-points.service';
+import { DatasourceService } from '../services/DATASOURCE/datasource.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,8 +14,15 @@ import { Router, RouterModule } from '@angular/router';
 })
 export class DASHBOARDComponent implements OnInit {
   loggedInUserName;
+  shares: any;
   constructor(
-    public router:Router) { }
+    public router:Router,
+    public datasourceService: DatasourceService,
+    private route: ActivatedRoute,
+    public httpClient: HttpClient,
+    public serverEndpoints: ServerEndPointsService,
+    public appComponent: AppComponent
+    ) { }
 
   ngOnInit() {
     this.showSelectedTab("dashboard");
@@ -27,7 +39,7 @@ export class DASHBOARDComponent implements OnInit {
   }
   navigateToDashboard(){
     this.showSelectedTab("dashboard");
-    this.router.navigate(['/dashboard']);
+    this.router.navigate(['/dashboard/home']);
   }
 
   currentSelected;
@@ -42,4 +54,7 @@ export class DASHBOARDComponent implements OnInit {
     localStorage.clear();
     this.router.navigate(['/login']);
   }
+
+
 }
+//
