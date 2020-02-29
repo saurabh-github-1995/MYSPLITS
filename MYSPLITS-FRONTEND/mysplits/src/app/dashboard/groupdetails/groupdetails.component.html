@@ -9,7 +9,13 @@
     <option value="spline">SPLINE</option>
   </select>
 </div>
+<div class="owes-container">
+  <div *ngFor="let ush of owesData">
+    <p style="display: flex;">{{ush.owes_member_name}}<i class="material-icons"  style="font-weight: bold;">keyboard_arrow_right</i> {{ush.amount}}
+      {{groups.currency}} <i class="material-icons" style="font-weight: bold;">keyboard_arrow_right</i> {{ush.owes_to_member_name}}</p>
+  </div>
 
+</div>
 <div class="expenses-container">
 
   <div class="add-expense-button-container">
@@ -59,20 +65,21 @@
       </div>
     </div>
   </div>
-  <div class="add-expense-form-div" id="searchUser" >
+  <div class="add-expense-form-div" id="searchUser">
     <form class="row" autocomplete="off">
       <div class="col s12">
         <div class="row">
           <div class="input-field col s12">
-            <input id="first_name" type="text" class="validate" [(ngModel)]="search_text" [ngModelOptions]="{standalone: true}">
+            <input id="first_name" type="text" class="validate" [(ngModel)]="search_text"
+              [ngModelOptions]="{standalone: true}">
             <label for="first_name">Type Name, Username or email</label>
           </div>
           <p>{{local_error_message}}</p>
           <div style="text-align: center;">
             <button class="btn waves-effect waves-light  red accent-3" type="submit" name="action"
-            (click)="searchUser()">Search
-            <i class="material-icons right">search</i>
-          </button>
+              (click)="searchUser()">Search
+              <i class="material-icons right">search</i>
+            </button>
           </div>
 
         </div>

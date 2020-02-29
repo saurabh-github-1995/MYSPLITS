@@ -219,3 +219,25 @@ class UserDAO:
         finally:
             cursor.close()
             conn.close()
+
+    @classmethod
+    def getMembersExpensesInGroup(cls, data):
+        try:
+            conn = mysql.connect()
+            cursor = conn.cursor(pymysql.cursors.DictCursor)
+            cursor.execute(
+                "SELECT * FROM expenses_splits es WHERE es.groupd_id = %s AND es.amount > 0 GROUP BY es.owes_member_id,es.owes_to_member_id ORDER BY es.owes_member_name ",
+                data.get('group_id'))
+            shares = cursor.fetchall()
+
+            return shares
+
+        except Exception as e:
+            print(e)
+            if str(e) != "":
+                return cls.customUtils.findSpecificError(str(e))
+            else:
+                raise e.__class__
+        finally:
+            cursor.close()
+            conn.close()

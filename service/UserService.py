@@ -86,3 +86,13 @@ class UserService:
             return responseData
         except Exception as e:
             raise e.__class__
+
+    @classmethod
+    def getMembersExpensesInGroup(cls, headers, data):
+        currentUser = cls.checkIfUserLoggedIn(headers.get('session_id'))
+
+        try:
+            responseData = cls.userDAO.getMembersExpensesInGroup(data)
+            return responseData
+        except Exception as e:
+            raise e.__class__

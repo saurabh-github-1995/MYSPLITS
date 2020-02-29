@@ -107,6 +107,7 @@ def getUserDetailsByUserId():
             wsResponse['operationStatus'] = CustomUtils.SOMETHING_WENT_WRONG
     return wsResponse
 
+
 @classmethod
 @app.route('/getInvitesOfUser', methods=['POST'])
 def getInvitesOfUser():
@@ -126,6 +127,7 @@ def getInvitesOfUser():
             wsResponse['resultSet'] = None
             wsResponse['operationStatus'] = CustomUtils.SOMETHING_WENT_WRONG
     return wsResponse
+
 
 @classmethod
 @app.route('/getUserShares', methods=['POST'])
@@ -175,7 +177,28 @@ def getUsersShareInGroup():
     wsResponse = {"resultSet": None, "operationStatus": None}
 
     try:
-        responseDate = userService.getUsersShareInGroup(request.headers,request.json)
+        responseDate = userService.getUsersShareInGroup(request.headers, request.json)
+
+        wsResponse['resultSet'] = responseDate
+        wsResponse['operationStatus'] = CustomUtils.SUCCESSFULL
+
+    except Exception as e:
+        if e.__class__ != "EXCEPTION":
+            wsResponse['resultSet'] = None
+            wsResponse['operationStatus'] = e.STATUS_CODE
+        else:
+            wsResponse['resultSet'] = None
+            wsResponse['operationStatus'] = CustomUtils.SOMETHING_WENT_WRONG
+    return wsResponse
+
+
+@classmethod
+@app.route('/getMembersExpensesInGroup', methods=['POST'])
+def getMembersExpensesInGroup():
+    wsResponse = {"resultSet": None, "operationStatus": None}
+
+    try:
+        responseDate = userService.getMembersExpensesInGroup(request.headers, request.json)
 
         wsResponse['resultSet'] = responseDate
         wsResponse['operationStatus'] = CustomUtils.SUCCESSFULL

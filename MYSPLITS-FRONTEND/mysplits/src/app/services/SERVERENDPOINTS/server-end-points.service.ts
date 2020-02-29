@@ -33,4 +33,5 @@ export class ServerEndPointsService {
   GETUSERSHARES = "getUserShares";
   GETUSERSSPENDINGINTOTAL = "getUsersSpendingInTotal";
   GETUSERSSHAREINGROUP = "getUsersShareInGroup";
+  GETMEMBERSEXPENSESINGROUP = "getMembersExpensesInGroup";
 }

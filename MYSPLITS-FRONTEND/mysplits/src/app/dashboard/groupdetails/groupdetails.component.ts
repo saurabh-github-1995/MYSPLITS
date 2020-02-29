@@ -26,6 +26,7 @@ export class GroupdetailsComponent implements OnInit {
   allUsers: null;
   search_text: any;
   graphType;
+  owesData: any;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -44,6 +45,7 @@ export class GroupdetailsComponent implements OnInit {
         this.getGroupExpenses();
         this.getGroupDetailsByGroupId();
         this.getUsersShareInGroup("column");
+        this.getMembersExpensesInGroup();
       }
     });
 
@@ -294,6 +296,37 @@ export class GroupdetailsComponent implements OnInit {
     });
 
     chart.render();
+
+  }
+
+  getMembersExpensesInGroup() {
+    this.appComponent.showLoader();
+    //debugger
+    let header = {
+      "session_id": localStorage.getItem("LOGGED_IN_USER_SEESION_ID")
+    }
+    let data = {
+
+      "group_id": this.globalGroupId
+    }
+    this.httpClient.post(this.serverEndpoints.SERVERURL + this.serverEndpoints.GETMEMBERSEXPENSESINGROUP,
+       data, { headers: header }).subscribe((response: any) => {
+      this.appComponent.hideLoader();
+      if (response.operationStatus == this.serverEndpoints.OPERATION_SUCESSESULL) {
+        this.owesData = response.resultSet;
+      } else {
+        this.appComponent.hideLoader();
+        this.appComponent.getSpecificError(response.operationStatus);
+      }
+
+    }, (error: Response) => {
+      this.appComponent.hideLoader();
+      alert("SPMETHING WENT WRONG**");
+      if (error.status === 404) {
+        console.log('Wrong url');
+      } else if (error.status === 400) {
+      }
+    });
 
   }
 }
