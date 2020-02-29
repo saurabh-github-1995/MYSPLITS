@@ -27,6 +27,8 @@ export class GroupdetailsComponent implements OnInit {
   search_text: any;
   graphType;
   owesData: any;
+  loggedInUserId=localStorage.getItem('LOGGED_IN_USER_ID');
+  requests: any;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -46,6 +48,7 @@ export class GroupdetailsComponent implements OnInit {
         this.getGroupDetailsByGroupId();
         this.getUsersShareInGroup("column");
         this.getMembersExpensesInGroup();
+        this.getRequestForSettlemets();
       }
     });
 
@@ -299,6 +302,71 @@ export class GroupdetailsComponent implements OnInit {
 
   }
 
+
+
+  requestForSettlement(owes_member_id,owes_to_member_id){
+    this.appComponent.showLoader();
+    //debugger
+    let header = {
+      "session_id": localStorage.getItem("LOGGED_IN_USER_SEESION_ID")
+    }
+    let data = {
+
+      "group_id": this.globalGroupId,
+      "owes_member_id": owes_member_id,
+      "owes_to_member_id": owes_to_member_id,
+    }
+    this.httpClient.post(this.serverEndpoints.SERVERURL + this.serverEndpoints.REQUESTFORSETTLEMENT,
+       data, { headers: header }).subscribe((response: any) => {
+      this.appComponent.hideLoader();
+      if (response.operationStatus == this.serverEndpoints.OPERATION_SUCESSESULL) {
+        location.reload();
+
+      } else {
+        this.appComponent.hideLoader();
+        this.appComponent.getSpecificError(response.operationStatus);
+      }
+
+    }, (error: Response) => {
+      this.appComponent.hideLoader();
+      alert("SPMETHING WENT WRONG**");
+      if (error.status === 404) {
+        console.log('Wrong url');
+      } else if (error.status === 400) {
+      }
+    });
+  }
+
+  getRequestForSettlemets() {
+    this.appComponent.showLoader();
+    let header = {
+      "session_id": localStorage.getItem("LOGGED_IN_USER_SEESION_ID")
+    }
+    let data = {
+
+      "group_id": this.globalGroupId
+    }
+    this.httpClient.post(this.serverEndpoints.SERVERURL + this.serverEndpoints.GETREQUESTFORSETTLEMETS,
+       data, { headers: header }).subscribe((response: any) => {
+      this.appComponent.hideLoader();
+      if (response.operationStatus == this.serverEndpoints.OPERATION_SUCESSESULL) {
+        this.requests = response.resultSet;
+      } else {
+        this.appComponent.hideLoader();
+        this.appComponent.getSpecificError(response.operationStatus);
+      }
+
+    }, (error: Response) => {
+      this.appComponent.hideLoader();
+      alert("SPMETHING WENT WRONG**");
+      if (error.status === 404) {
+        console.log('Wrong url');
+      } else if (error.status === 400) {
+      }
+    });
+
+  }
+
   getMembersExpensesInGroup() {
     this.appComponent.showLoader();
     //debugger
@@ -307,13 +375,48 @@ export class GroupdetailsComponent implements OnInit {
     }
     let data = {
 
-      "group_id": this.globalGroupId
+      "group_id": this.globalGroupId,
+
     }
-    this.httpClient.post(this.serverEndpoints.SERVERURL + this.serverEndpoints.GETMEMBERSEXPENSESINGROUP,
+    this.httpClient.post(this.serverEndpoints.SERVERURL + this.serverEndpoints.GETUSERSOWINGINGROUP,
        data, { headers: header }).subscribe((response: any) => {
       this.appComponent.hideLoader();
       if (response.operationStatus == this.serverEndpoints.OPERATION_SUCESSESULL) {
         this.owesData = response.resultSet;
+      } else {
+        this.appComponent.hideLoader();
+        this.appComponent.getSpecificError(response.operationStatus);
+      }
+
+    }, (error: Response) => {
+      this.appComponent.hideLoader();
+      alert("SPMETHING WENT WRONG**");
+      if (error.status === 404) {
+        console.log('Wrong url');
+      } else if (error.status === 400) {
+      }
+    });
+
+  }
+
+  settleBalance(owes_member_id,owes_to_member_id) {
+    this.appComponent.showLoader();
+    //debugger
+    let header = {
+      "session_id": localStorage.getItem("LOGGED_IN_USER_SEESION_ID")
+    }
+    let data = {
+
+      "group_id": this.globalGroupId,
+      "owes_member_id": owes_member_id,
+      "owes_to_member_id": owes_to_member_id,
+    }
+    this.httpClient.post(this.serverEndpoints.SERVERURL + this.serverEndpoints.SETTLEBALANACEFORGROUP,
+       data, { headers: header }).subscribe((response: any) => {
+      this.appComponent.hideLoader();
+      if (response.operationStatus == this.serverEndpoints.OPERATION_SUCESSESULL) {
+        location.reload();
+
       } else {
         this.appComponent.hideLoader();
         this.appComponent.getSpecificError(response.operationStatus);

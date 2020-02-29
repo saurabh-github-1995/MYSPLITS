@@ -204,8 +204,9 @@ class UserDAO:
         try:
             conn = mysql.connect()
             cursor = conn.cursor(pymysql.cursors.DictCursor)
-            cursor.execute("SELECT * , SUM(e.amount) AS total FROM expenses e  WHERE e.group_id = %s GROUP BY e.paid_by_id",
-                           data.get('group_id'))
+            cursor.execute(
+                "SELECT * , SUM(e.amount) AS total FROM expenses e  WHERE e.group_id = %s GROUP BY e.paid_by_id",
+                data.get('group_id'))
             shares = cursor.fetchall()
 
             return shares
@@ -221,16 +222,15 @@ class UserDAO:
             conn.close()
 
     @classmethod
-    def getMembersExpensesInGroup(cls, data):
+    def requestForSettlement(cls, data):
         try:
             conn = mysql.connect()
             cursor = conn.cursor(pymysql.cursors.DictCursor)
             cursor.execute(
-                "SELECT * FROM expenses_splits es WHERE es.groupd_id = %s AND es.amount > 0 GROUP BY es.owes_member_id,es.owes_to_member_id ORDER BY es.owes_member_name ",
-                data.get('group_id'))
-            shares = cursor.fetchall()
+                "UPDATE expenses_splits es SET es.request_for_settlement = 1 WHERE es.groupd_id =%s AND es.owes_member_id = %s AND es.owes_to_member_id = %s",
+                (data.get('group_id'), data.get('owes_member_id'), data.get('owes_to_member_id')))
 
-            return shares
+            conn.commit()
 
         except Exception as e:
             print(e)
@@ -238,6 +238,78 @@ class UserDAO:
                 return cls.customUtils.findSpecificError(str(e))
             else:
                 raise e.__class__
+
+        finally:
+            cursor.close()
+            conn.close()
+
+    @classmethod
+    def getMembersExpensesInGroup(cls, data):
+        try:
+            conn = mysql.connect()
+            cursor = conn.cursor(pymysql.cursors.DictCursor)
+            cursor.execute(
+                "SELECT * FROM expenses_splits es WHERE es.groupd_id = %s AND es.amount > 0 GROUP BY es.owes_member_id,es.owes_to_member_id ORDER BY es.owes_member_name ",
+                data.get('group_id'))
+            expenses1 = cursor.fetchall()
+            return expenses1
+        except Exception as e:
+
+            print(e)
+            if str(e) != "":
+                return cls.customUtils.findSpecificError(str(e))
+            else:
+                raise e.__class__
+
+        finally:
+            cursor.close()
+            conn.close()
+
+    @classmethod
+    def getRequestForSettlemets(cls, data, userId):
+        try:
+            conn = mysql.connect()
+            cursor = conn.cursor(pymysql.cursors.DictCursor)
+            cursor.execute(
+                "SELECT * FROM expenses_splits es WHERE es.groupd_id = %s AND es.owes_to_member_id = %s AND es.request_for_settlement = 1",
+                (data.get('group_id'), userId))
+            requests = cursor.fetchall()
+            return requests
+        except Exception as e:
+
+            print(e)
+            if str(e) != "":
+                return cls.customUtils.findSpecificError(str(e))
+            else:
+                raise e.__class__
+
+        finally:
+            cursor.close()
+            conn.close()
+
+    @classmethod
+    def settleBalanaceForGroup(cls, data):
+        try:
+            conn = mysql.connect()
+            cursor = conn.cursor(pymysql.cursors.DictCursor)
+            cursor.execute(
+                "UPDATE expenses_splits es SET es.request_for_settlement = 0 , es.amount = 0 WHERE es.groupd_id =%s AND es.owes_member_id = %s AND es.owes_to_member_id = %s",
+                (data.get('group_id'), data.get('owes_member_id'), data.get('owes_to_member_id')))
+            conn.commit()
+
+            cursor.execute(
+                "UPDATE expenses_splits es SET es.request_for_settlement = 0 , es.amount = 0 WHERE es.groupd_id =%s AND es.owes_member_id = %s AND es.owes_to_member_id = %s",
+                (data.get('group_id'), data.get('owes_to_member_id'), data.get('owes_member_id')))
+            conn.commit()
+            return True
+        except Exception as e:
+
+            print(e)
+            if str(e) != "":
+                return cls.customUtils.findSpecificError(str(e))
+            else:
+                raise e.__class__
+
         finally:
             cursor.close()
             conn.close()

@@ -9,13 +9,35 @@
     <option value="spline">SPLINE</option>
   </select>
 </div>
-<div class="owes-container">
-  <div *ngFor="let ush of owesData">
-    <p style="display: flex;">{{ush.owes_member_name}}<i class="material-icons"  style="font-weight: bold;">keyboard_arrow_right</i> {{ush.amount}}
-      {{groups.currency}} <i class="material-icons" style="font-weight: bold;">keyboard_arrow_right</i> {{ush.owes_to_member_name}}</p>
-  </div>
+<div class="balance-and-shares-containr">
+  <div class="owes-container">
+    <h5 class="requests-and-owes-header">Balances</h5>
+    <div *ngFor="let ush of owesData" class="settle-acoount-flex-container">
+      <p style="display: flex;" class="settle-acoount-flex-items">{{ush.owes_member_name}}<i class="material-icons"
+          style="font-weight: bold;">keyboard_arrow_right</i> {{ush.amount}}
+        {{groups.currency}} <i class="material-icons" style="font-weight: bold;">keyboard_arrow_right</i>
+        {{ush.owes_to_member_name}} </p>
+      <!-- <span class="new badge" data-badge-caption="custom caption"
+          *ngIf="ush.owes_member_id==loggedInUserId">4 <i class="material-icons right">cloud</i></span> -->
+      <p class="waves-effect waves-light btn" *ngIf="ush.owes_member_id==loggedInUserId && ush.request_for_settlement==0"
+        (click)="requestForSettlement(ush.owes_member_id,ush.owes_to_member_id)"><i
+          class="material-icons right">check</i>SETTLE UP</p>
+          <span class="new badge blue" data-badge-caption="" *ngIf="ush.owes_member_id==loggedInUserId && ush.request_for_settlement==1">Requested</span>
 
+    </div>
+
+  </div>
+  <div class="requests-flex-container">
+    <h5 class="requests-and-owes-header">Requests</h5>
+    <div *ngFor = "let rq of requests" class="request-flex-container">
+      <p class="settle-acoount-flex-items" style="display: flex;">{{rq.owes_member_name}} <i class="material-icons"
+        style="font-weight: bold;">keyboard_arrow_right</i> {{rq.amount}} {{groups.currency}}</p>
+      <p class="waves-effect waves-light btn lime darken-3" (click)="settleBalance(rq.owes_member_id,rq.owes_to_member_id)"><i
+          class="material-icons right">check</i>SETTLE UP</p>
+    </div>
+  </div>
 </div>
+
 <div class="expenses-container">
 
   <div class="add-expense-button-container">

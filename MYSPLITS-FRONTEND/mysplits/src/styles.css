@@ -389,6 +389,37 @@ select{
   border: 1px solid #c7bcbc;
 }
 .owes-container{
-  width: 90%;
-  margin: auto;
+  width: 40%;
+  /* margin: auto; */
+  border-right: 1px solid #e2e1e1;
+}
+.settle-acoount-flex-container{
+  display: flex;
+  align-items: center;
+  padding: 5px;
+}
+.settle-acoount-flex-items{
+  margin-right: 16px;
+
+}
+.request-flex-container{
+    display: flex;
+    align-items: center;
+    padding: 5px;
+}
+.requests-flex-container{
+  width: 40%;
+  /* margin: auto; */
+}
+.balance-and-shares-containr{
+  display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+.requests-and-owes-header{
+  border-bottom: 1px solid #e2e1e1;
+    padding: 13px;
+    text-align: center;
+    background: #ececde;
+    text-transform: uppercase;
 }

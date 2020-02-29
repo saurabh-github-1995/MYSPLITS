@@ -34,4 +34,8 @@ export class ServerEndPointsService {
   GETUSERSSPENDINGINTOTAL = "getUsersSpendingInTotal";
   GETUSERSSHAREINGROUP = "getUsersShareInGroup";
   GETMEMBERSEXPENSESINGROUP = "getMembersExpensesInGroup";
+  REQUESTFORSETTLEMENT = "requestForSettlement";
+  GETUSERSOWINGINGROUP = "getUsersOwingInGroup";
+  GETREQUESTFORSETTLEMETS = "getRequestForSettlemets";
+  SETTLEBALANACEFORGROUP = "settleBalanaceForGroup";
 }

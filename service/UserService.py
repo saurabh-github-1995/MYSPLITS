@@ -78,11 +78,21 @@ class UserService:
             raise e.__class__
 
     @classmethod
-    def getUsersShareInGroup(cls, headers,data):
+    def getUsersShareInGroup(cls, headers, data):
         currentUser = cls.checkIfUserLoggedIn(headers.get('session_id'))
 
         try:
             responseData = cls.userDAO.getUsersShareInGroup(data)
+            return responseData
+        except Exception as e:
+            raise e.__class__
+
+    @classmethod
+    def requestForSettlement(cls, headers, data):
+        currentUser = cls.checkIfUserLoggedIn(headers.get('session_id'))
+
+        try:
+            responseData = cls.userDAO.requestForSettlement(data)
             return responseData
         except Exception as e:
             raise e.__class__
@@ -93,6 +103,26 @@ class UserService:
 
         try:
             responseData = cls.userDAO.getMembersExpensesInGroup(data)
+            return responseData
+        except Exception as e:
+            raise e.__class__
+
+    @classmethod
+    def getRequestForSettlemets(cls, headers, data):
+        currentUser = cls.checkIfUserLoggedIn(headers.get('session_id'))
+
+        try:
+            responseData = cls.userDAO.getRequestForSettlemets(data,currentUser.get('id'))
+            return responseData
+        except Exception as e:
+            raise e.__class__
+
+    @classmethod
+    def settleBalanaceForGroup(cls, headers, data):
+        currentUser = cls.checkIfUserLoggedIn(headers.get('session_id'))
+
+        try:
+            responseData = cls.userDAO.settleBalanaceForGroup(data)
             return responseData
         except Exception as e:
             raise e.__class__
