@@ -14,6 +14,7 @@ export class ServerEndPointsService {
   LOGGED_IN_USER_SEESION_ID="LOGGED_IN_USER_SEESION_ID";
   LOGGED_IN_USER_NAME="LOGGED_IN_USER_NAME";
   LOGGED_IN_USER_ID="LOGGED_IN_USER_ID";
+  LOGGED_IN_USER_FIREBASE_TOKEN="LOGGED_IN_USER_FIREBASE_TOKEN";
 
   /**********************ENDPOINTS******************************** */
   LOGINUSER="loginUser";

@@ -1,4 +1,5 @@
 import uuid
+from random import randint
 
 import pymysql
 from CustomUtils import *
@@ -46,8 +47,9 @@ class UserDAO:
             user = cursor.fetchall()
             print(len(user))
             if len(user) == 1:
-                cursor.execute("UPDATE users u SET u.session_id = %s WHERE u.user_name = %s AND u.password=%s",
-                               (session_id, data.get('user_name'), data.get('password')))
+                cursor.execute(
+                    "UPDATE users u SET u.session_id = %s, u.firebase_token=%s WHERE u.user_name = %s AND u.password=%s",
+                    (session_id, data.get('firebase_token'), data.get('user_name'), data.get('password')))
                 conn.commit()
                 cursor.execute("SELECT * FROM users u WHERE u.user_name = %s AND u.password=%s",
                                (data.get('user_name'), data.get('password')))
@@ -154,16 +156,16 @@ class UserDAO:
             conn.close()
 
     @classmethod
-    def getUserShares(cls, userid):
+    def getUserShares(cls, user_id):
         try:
             conn = mysql.connect()
             cursor = conn.cursor(pymysql.cursors.DictCursor)
             cursor.execute("SELECT * FROM expenses_splits es WHERE es.owes_member_id = %s AND es.amount > 0",
-                           userid)
+                           user_id)
             owes = cursor.fetchall()
 
             cursor.execute("SELECT * FROM expenses_splits es WHERE es.owes_to_member_id = %s AND es.amount > 0",
-                           userid)
+                           user_id)
             owesFrom = cursor.fetchall()
             shares = {"owes": owes, "owesFrom": owesFrom}
             return shares
@@ -302,6 +304,35 @@ class UserDAO:
                 (data.get('group_id'), data.get('owes_to_member_id'), data.get('owes_member_id')))
             conn.commit()
             return True
+        except Exception as e:
+
+            print(e)
+            if str(e) != "":
+                return cls.customUtils.findSpecificError(str(e))
+            else:
+                raise e.__class__
+
+        finally:
+            cursor.close()
+            conn.close()
+
+    @classmethod
+    def sendForgotPassWordEmail(cls, data):
+        try:
+            conn = mysql.connect()
+            cursor = conn.cursor(pymysql.cursors.DictCursor)
+
+            OTP = randint(100000, 999999)
+
+            cursor.execute(
+                "UPDATE users u set u.otp = %s WHERE u.email = %s",
+                (OTP, data.get('email')))
+            conn.commit()
+            cursor.execute(
+                "SELECT * FROM users u WHERE u.email = %s",
+                data.get('email'));
+            user = cursor.fetchone()
+            return user
         except Exception as e:
 
             print(e)

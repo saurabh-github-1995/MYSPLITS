@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
+import { FirebaseService } from '../services/FIREBASE/firebase.service';
 
 @Component({
   selector: 'app-login',
@@ -20,10 +21,11 @@ export class LoginComponent implements OnInit {
     public serverEndpoints: ServerEndPointsService,
     public datasourceService: DatasourceService,
     public appComponent:AppComponent,
-    public router:Router) { }
+    public router:Router,
+    public messagingService:FirebaseService) { }
 
   ngOnInit() {
-
+    this.messagingService.requestPermission("63266");
   }
 
 
@@ -33,7 +35,8 @@ export class LoginComponent implements OnInit {
 
     let postBody = {
       "user_name": this.username,
-      "password": this.password
+      "password": this.password,
+      "firebase_token":localStorage.getItem(this.serverEndpoints.LOGGED_IN_USER_FIREBASE_TOKEN)
     }
     console.log(this.serverEndpoints.SERVERURL)
     let header = {}
@@ -46,6 +49,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem(this.serverEndpoints.LOGGED_IN_USER_SEESION_ID, user.session_id);
         localStorage.setItem(this.serverEndpoints.LOGGED_IN_USER_NAME, user.full_name);
         localStorage.setItem(this.serverEndpoints.LOGGED_IN_USER_ID, user.id);
+        //localStorage
         this.appComponent.hideLoader();
         this.router.navigate(['/dashboard/groups']);
       } else {

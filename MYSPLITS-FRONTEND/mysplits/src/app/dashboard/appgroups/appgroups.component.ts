@@ -1,3 +1,4 @@
+import { FirebaseService } from './../../services/FIREBASE/firebase.service';
 import { DASHBOARDComponent } from './../dashboard.component';
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
@@ -25,12 +26,16 @@ export class AppgroupsComponent implements OnInit {
     public datasourceService: DatasourceService,
     public appComponent: AppComponent,
     public router: Router,
-    public dASHBOARDComponent:DASHBOARDComponent) { }
+    public dASHBOARDComponent:DASHBOARDComponent,
+    public firebaseService:FirebaseService) { }
 
   ngOnInit() {
     this.dASHBOARDComponent.showSelectedTab("group");
     this.getMembersGroups();
     this.getListOfCurrencies();
+    this.firebaseService.receiveMessage()
+    let message = this.firebaseService.currentMessage;
+    console.log(message)
 
   }
   groups;
@@ -45,7 +50,7 @@ export class AppgroupsComponent implements OnInit {
 
       if (response.operationStatus == this.serverEndpoints.OPERATION_SUCESSESULL) {
         this.groups = response.resultSet;
-        console.log(this.groups);
+       // console.log(this.groups);
         this.appComponent.hideLoader();
 
       } else {

@@ -1,3 +1,4 @@
+import { FirebaseService } from './services/FIREBASE/firebase.service';
 import { DatasourceService } from './services/DATASOURCE/datasource.service';
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
@@ -16,7 +17,8 @@ export class AppComponent {
     private route: ActivatedRoute,
     private router: Router,
     public httpClient: HttpClient,
-    public serverEndpoints: ServerEndPointsService
+    public serverEndpoints: ServerEndPointsService,
+    public messagingService:FirebaseService
     ) { }
 
     ngOnInit(){
@@ -26,6 +28,10 @@ export class AppComponent {
         this.checkIfUserLoggedIn();
       }
 
+    this.messagingService.receiveMessage();
+    let message = this.messagingService.currentMessage;
+    console.log(123);
+    console.log(message)
     }
   shoModal = false;
   title = 'mysplits';

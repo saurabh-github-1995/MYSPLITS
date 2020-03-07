@@ -14,9 +14,15 @@ import * as $ from 'jquery';
 import { InvitesComponent } from './dashboard/invites/invites.component';
 import { HomepageComponent } from './dashboard/homepage/homepage.component';
 import { ChartsModule } from 'ng2-charts';
+import { AngularFireMessagingModule } from '@angular/fire/messaging';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireModule } from '@angular/fire';
 
 
 
+import { environment } from '../environments/environment';
+import { AsyncPipe } from '../../node_modules/@angular/common';
 
 //declare var $: any;
 console.log(`jQuery version: ${$.fn.jquery}`);
@@ -36,7 +42,11 @@ console.log(`jQuery version: ${$.fn.jquery}`);
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ChartsModule
+    ChartsModule,
+    AngularFireDatabaseModule,
+    AngularFireAuthModule,
+    AngularFireMessagingModule,
+    AngularFireModule.initializeApp(environment.firebase),
   ],
   providers: [],
   bootstrap: [AppComponent]

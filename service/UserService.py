@@ -3,10 +3,12 @@ from random import randint
 
 from Exceptions.UserNameExists import UserNameExists
 from dao.UserDAO import UserDAO
+from service.EmailService import EmailService
 
 
 class UserService:
     userDAO = UserDAO()
+    emailService = EmailService()
 
     @classmethod
     def userRegistration(cls, data):
@@ -112,7 +114,7 @@ class UserService:
         currentUser = cls.checkIfUserLoggedIn(headers.get('session_id'))
 
         try:
-            responseData = cls.userDAO.getRequestForSettlemets(data,currentUser.get('id'))
+            responseData = cls.userDAO.getRequestForSettlemets(data, currentUser.get('id'))
             return responseData
         except Exception as e:
             raise e.__class__
@@ -123,6 +125,16 @@ class UserService:
 
         try:
             responseData = cls.userDAO.settleBalanaceForGroup(data)
+            return responseData
+        except Exception as e:
+            raise e.__class__
+
+    @classmethod
+    def sendForgotPassWordEmail(cls, data):
+        try:
+            responseData = cls.userDAO.sendForgotPassWordEmail(data)
+            message = "Your otp for changing password is " + responseData.get('otp')
+            cls.emailService.sendEmail(responseData.get('email'), message)
             return responseData
         except Exception as e:
             raise e.__class__
