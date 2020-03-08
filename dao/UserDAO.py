@@ -1,4 +1,5 @@
 import uuid
+from random import randint
 
 import pymysql
 from CustomUtils import *
@@ -302,6 +303,83 @@ class UserDAO:
                 (data.get('group_id'), data.get('owes_to_member_id'), data.get('owes_member_id')))
             conn.commit()
             return True
+        except Exception as e:
+
+            print(e)
+            if str(e) != "":
+                return cls.customUtils.findSpecificError(str(e))
+            else:
+                raise e.__class__
+
+        finally:
+            cursor.close()
+            conn.close()
+
+    @classmethod
+    def sendForgotpasswordMail(cls, data):
+        try:
+            OTP = randint(100000, 999999)
+            conn = mysql.connect()
+            cursor = conn.cursor(pymysql.cursors.DictCursor)
+            cursor.execute("UPDATE users u SET u.otp = %s WHERE u.email =%s",
+                           (OTP, data.get('email')))
+            conn.commit()
+
+            cursor.execute("SELECT * FROM users u WHERE u.email = %s",
+                           data.get('email'))
+            user = cursor.fetchone();
+            return user
+        except Exception as e:
+
+            print(e)
+            if str(e) != "":
+                return cls.customUtils.findSpecificError(str(e))
+            else:
+                raise e.__class__
+
+        finally:
+            cursor.close()
+            conn.close()
+
+    @classmethod
+    def checkIfUserExistsWithEmailId(cls, email):
+        try:
+            conn = mysql.connect()
+            cursor = conn.cursor(pymysql.cursors.DictCursor)
+            cursor.execute(
+                "SELECT * FROM users u WHERE u.email = %s",
+                email)
+            user = cursor.fetchone()
+            if user is not None:
+                return user
+            else:
+                raise UserDoesNotExists
+        except Exception as e:
+
+            print(e)
+            if str(e) != "":
+                return cls.customUtils.findSpecificError(str(e))
+            else:
+                raise e.__class__
+
+        finally:
+            cursor.close()
+            conn.close()
+
+    @classmethod
+    def changePassword(cls, data):
+        try:
+
+            conn = mysql.connect()
+            cursor = conn.cursor(pymysql.cursors.DictCursor)
+            cursor.execute("UPDATE users u SET u.password = %s WHERE u.email =%s",
+                           (data.get("new_password"), data.get('email')))
+            conn.commit()
+
+            cursor.execute("SELECT * FROM users u WHERE u.email = %s",
+                           data.get('email'))
+            user = cursor.fetchone();
+            return user
         except Exception as e:
 
             print(e)

@@ -2,12 +2,13 @@ from flask_cors import cross_origin
 
 from Exceptions.UserNameExists import UserNameExists
 from app import app
+from service.EmailService import EmailService
 from service.UserService import UserService
 from flask import flash, request
 from CustomUtils import *
 
 userService = UserService()
-
+emailService = EmailService()
 
 @app.route('/userRegistration', methods=['POST'])
 def userRegistration():
@@ -263,6 +264,48 @@ def settleBalanaceForGroup():
 
     try:
         responseDate = userService.settleBalanaceForGroup(request.headers, request.json)
+
+        wsResponse['resultSet'] = responseDate
+        wsResponse['operationStatus'] = CustomUtils.SUCCESSFULL
+
+    except Exception as e:
+        if e.__class__ != "EXCEPTION":
+            wsResponse['resultSet'] = None
+            wsResponse['operationStatus'] = e.STATUS_CODE
+        else:
+            wsResponse['resultSet'] = None
+            wsResponse['operationStatus'] = CustomUtils.SOMETHING_WENT_WRONG
+    return wsResponse
+
+
+@app.route('/sendForgotpasswordMail', methods=['POST'])
+@cross_origin()
+def sendForgotpasswordMail():
+    wsResponse = {"resultSet": None, "operationStatus": None}
+
+    try:
+        responseDate = userService.sendForgotpasswordMail(request.json)
+
+        wsResponse['resultSet'] = responseDate
+        wsResponse['operationStatus'] = CustomUtils.SUCCESSFULL
+
+    except Exception as e:
+        if e.__class__ != "EXCEPTION":
+            wsResponse['resultSet'] = None
+            wsResponse['operationStatus'] = e.STATUS_CODE
+        else:
+            wsResponse['resultSet'] = None
+            wsResponse['operationStatus'] = CustomUtils.SOMETHING_WENT_WRONG
+    return wsResponse
+
+
+@app.route('/changePassword', methods=['POST'])
+@cross_origin()
+def changePassword():
+    wsResponse = {"resultSet": None, "operationStatus": None}
+
+    try:
+        responseDate = userService.changePassword(request.json)
 
         wsResponse['resultSet'] = responseDate
         wsResponse['operationStatus'] = CustomUtils.SUCCESSFULL
