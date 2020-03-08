@@ -1,3 +1,5 @@
+import { ChangepasswordComponent } from './changepassword/changepassword.component';
+import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
 import { HomepageComponent } from './dashboard/homepage/homepage.component';
 import { InvitesComponent } from './dashboard/invites/invites.component';
 import { GroupdetailsComponent } from './dashboard/groupdetails/groupdetails.component';
@@ -13,6 +15,8 @@ import { LoginComponent } from './login/login.component';
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
+  { path: 'forgotpassword', component: ForgotpasswordComponent },
+  { path: 'changepassword', component: ChangepasswordComponent },
   {
     path: 'dashboard', component: DASHBOARDComponent, children: [
       {

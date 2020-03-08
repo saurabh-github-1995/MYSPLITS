@@ -25,6 +25,8 @@ class CustomUtils:
     PAID_FOR_CANNOT_BE_NULL = -13
     PASSWORD_CANNOT_BE_NULL = -14
     INVITATION_ALREADY_SENT = -15
+    OTP_DOES_NOT_EXISTS = -16
+    BOTH_PASSWORD_DOES_NOT_MATCHES = -17
 
     @classmethod
     def findSpecificError(cls, errorString):

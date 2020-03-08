@@ -49,6 +49,8 @@ export class AppComponent {
   PAID_FOR_CANNOT_BE_NULL = -13;
   PASSWORD_CANNOT_BE_NULL = -14
   INVITATION_ALREADY_SENT = -15
+  OTP_DOES_NOT_EXISTS = -16
+  BOTH_PASSWORD_DOES_NOT_MATCHES = -17
 
   getSpecificError(operationStatus: any) {
     if (operationStatus == this.SOMETHING_WENT_WRONG) {
@@ -85,7 +87,9 @@ export class AppComponent {
     } else if (operationStatus == this.GROUP_DOES_NOT_EXISTS) {
       alert("");
     } else if (operationStatus == this.USER_DOES_NOT_EXISTS) {
-      alert("");
+      this.header = "ERROR";
+      this.message = "User with this email does not exist";
+      this.shoModal = true;
     } else if (operationStatus == this.INVITE_DOES_NOT_EXISTS) {
       alert("");
     } else if (operationStatus == this.AMOUNT_CANNOT_BE_NULL) {
@@ -99,6 +103,14 @@ export class AppComponent {
     } else if (operationStatus == this.INVITATION_ALREADY_SENT) {
       this.header = "ERROR";
       this.message = "Either Invitation already sent or user already a member of group";
+      this.shoModal = true;
+    } else if (operationStatus == this.OTP_DOES_NOT_EXISTS) {
+      this.header = "ERROR";
+      this.message = "Otp does not match";
+      this.shoModal = true;
+    } else if (operationStatus == this.BOTH_PASSWORD_DOES_NOT_MATCHES) {
+      this.header = "ERROR";
+      this.message = "Password Does Not matches";
       this.shoModal = true;
     } else {
       alert("");

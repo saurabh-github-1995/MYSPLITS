@@ -14,6 +14,8 @@ import * as $ from 'jquery';
 import { InvitesComponent } from './dashboard/invites/invites.component';
 import { HomepageComponent } from './dashboard/homepage/homepage.component';
 import { ChartsModule } from 'ng2-charts';
+import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
+import { ChangepasswordComponent } from './changepassword/changepassword.component';
 
 
 
@@ -29,7 +31,9 @@ console.log(`jQuery version: ${$.fn.jquery}`);
     AppgroupsComponent,
     GroupdetailsComponent,
     InvitesComponent,
-    HomepageComponent
+    HomepageComponent,
+    ForgotpasswordComponent,
+    ChangepasswordComponent
   ],
   imports: [
     BrowserModule,

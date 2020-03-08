@@ -38,4 +38,6 @@ export class ServerEndPointsService {
   GETUSERSOWINGINGROUP = "getUsersOwingInGroup";
   GETREQUESTFORSETTLEMETS = "getRequestForSettlemets";
   SETTLEBALANACEFORGROUP = "settleBalanaceForGroup";
+  SENDFORGOTPASSWORDMAIL = "sendForgotpasswordMail";
+  CHANGEPASSWORD = "changePassword";
 }

@@ -5,6 +5,7 @@ import pymysql
 from CustomUtils import *
 from Exceptions.EmailCannotBeNull import EmailCannotBeNull
 from Exceptions.EmailExists import EmailExists
+from Exceptions.OtpDoesNotMatches import OtpDoesNotMatches
 from Exceptions.UserDoesNotExists import UserDoesNotExists
 from Exceptions.UserNameCannotBeNull import UserNameCannotBeNull
 from Exceptions.UserNameExists import UserNameExists
@@ -372,13 +373,19 @@ class UserDAO:
 
             conn = mysql.connect()
             cursor = conn.cursor(pymysql.cursors.DictCursor)
+
+            cursor.execute("SELECT * FROM users u WHERE u.otp=%s AND u.email=%s", (data.get('otp'), data.get('email')))
+            user = cursor.fetchone()
+            if user is None:
+                raise OtpDoesNotMatches
+
             cursor.execute("UPDATE users u SET u.password = %s WHERE u.email =%s",
                            (data.get("new_password"), data.get('email')))
             conn.commit()
 
             cursor.execute("SELECT * FROM users u WHERE u.email = %s",
                            data.get('email'))
-            user = cursor.fetchone();
+            user = cursor.fetchone()
             return user
         except Exception as e:
 
