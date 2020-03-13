@@ -156,3 +156,21 @@
 
   </div>
 </div>
+<div class="group-list-flex-container hide-class-700px">
+  <div *ngFor="let ex of expensesList" class="group-list-flex-items" (click)="navigateToGroupDetials(g.group_id)">
+    <div class="avatar-and-name-flex-container">
+      <div>
+        <img src="../../../assets/images/icon-group.png" class="avatar-image">
+      </div>
+      <div>
+        <h6 class="group-headers">{{ex.paid_by_name}}</h6>
+      </div>
+    </div>
+
+
+    <div>{{ex.paid_for}}</div>
+    <div>Amount - {{ex.amount}}</div>
+    <div>Currency - {{groups.currency}}</div>
+    <div>Date - {{ex.paid_date | date: 'dd/MM/yyyy'}}</div>
+  </div>
+</div>

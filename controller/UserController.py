@@ -10,6 +10,7 @@ from CustomUtils import *
 userService = UserService()
 emailService = EmailService()
 
+
 @app.route('/userRegistration', methods=['POST'])
 def userRegistration():
     wsResponse = {"resultSet": None, "operationStatus": None}

@@ -43,3 +43,26 @@
 
   </div>
 </div>
+<div class="group-list-flex-container hide-class-700px">
+  <div *ngFor="let ev of invites" class="group-list-flex-items" (click)="navigateToGroupDetials(g.group_id)">
+    <div class="avatar-and-name-flex-container">
+      <div>
+        <img src="../../../assets/images/icon-group.png" class="avatar-image">
+      </div>
+      <div>
+        <h6 class="group-headers">{{ev.group_name}}</h6>
+      </div>
+    </div>
+
+
+
+    <div>Invited By - {{ev.invited_by_name}}</div>
+    <div>Invited Date - {{ev.invited_on | date: 'dd/MM/yyyy'}}</div>
+    <div>
+      <p class="p-margin-0 ">
+        <span class="green-badge" *ngIf="ev.invitation_status=='ACCEPTED'">{{ev.invitation_status}}</span>
+        <a class="waves-effect waves-light btn blue lighten-3" *ngIf="ev.invitation_status!='ACCEPTED'" (click)="acceptInvite(ev.id)"><i class="material-icons right">check</i>ACCEPT</a>
+      </p>
+    </div>
+  </div>
+</div>

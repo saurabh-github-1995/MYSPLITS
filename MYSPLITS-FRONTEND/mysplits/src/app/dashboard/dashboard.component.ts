@@ -55,6 +55,10 @@ export class DASHBOARDComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 
+  toggleSidebar(){
+    $("#sidebar").toggle('slow');
+    $(".top-navbar").toggleClass("padding-left");
+  }
 
 }
 //

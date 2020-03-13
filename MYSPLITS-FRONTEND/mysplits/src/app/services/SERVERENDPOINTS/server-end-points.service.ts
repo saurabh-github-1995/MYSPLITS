@@ -7,7 +7,8 @@ export class ServerEndPointsService {
 
 
   constructor() { }
-  SERVERURL= "http://127.0.0.1:5000/";
+  SERVERURL= "http://127.0.0.1/";
+  //SERVERURL="http://34.89.65.95/";
 
 
   OPERATION_SUCESSESULL=1;
